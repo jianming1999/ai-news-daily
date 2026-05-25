@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>AI 日报｜每日AI科技资讯</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', 'Microsoft YaHei', sans-serif;
+    background: #f0f2f5;
+    color: #2c3e50;
+    line-height: 1.6;
+  }
+  
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #fff;
+    padding: 40px 20px 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(102,126,234,0.1) 0%, transparent 70%);
+    animation: pulse 4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+  .header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 1;
+  }
+  .header h1 span { color: #667eea; }
+  .header .subtitle {
+    font-size: 13px;
+    color: #8899aa;
+    margin-top: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .header .date-badge {
+    display: inline-block;
+    background: rgba(102,126,234,0.2);
+    border: 1px solid rgba(102,126,234,0.3);
+    border-radius: 20px;
+    padding: 4px 16px;
+    font-size: 12px;
+    color: #aabbdd;
+    margin-top: 10px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    display: flex;
+    justify-content: space-around;
+    background: #fff;
+    padding: 14px 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin-bottom: 16px;
+  }
+  .stats-bar .stat {
+    text-align: center;
+  }
+  .stats-bar .stat .num {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+  .stats-bar .stat .label {
+    font-size: 11px;
+    color: #8899aa;
+    margin-top: 2px;
+  }
+
+  /* Container */
+  .container { max-width: 720px; margin: 0 auto; padding: 0 14px; }
+
+  /* News card */
+  .news-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .news-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+
+  .news-card .card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .news-card .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    padding: 0 10px;
+  }
+  .news-card .tag {
+    font-size: 11px;
+    color: #8899aa;
+    background: #f0f2f5;
+    padding: 2px 10px;
+    border-radius: 10px;
+  }
+  .news-card .hot {
+    font-size: 11px;
+    color: #e74c3c;
+  }
+  .news-card h2 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 6px;
+    line-height: 1.5;
+  }
+  .news-card p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.7;
+  }
+  .news-card .highlight-box {
+    background: #f8f9ff;
+    border-left: 3px solid #667eea;
+    border-radius: 4px;
+    padding: 10px 12px;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #667;
+  }
+
+  /* Update footer */
+  .update-info {
+    text-align: center;
+    padding: 20px;
+    color: #8899aa;
+    font-size: 12px;
+  }
+  .update-info .time {
+    display: inline-block;
+    background: #e8edff;
+    color: #4361ee;
+    padding: 4px 14px;
+    border-radius: 12px;
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .header h1 { font-size: 22px; }
+    .news-card { padding: 14px; }
+  }
+
+  /* Loading shimmer */
+  .shimmer {
+    background: linear-gradient(90deg, #f0f2f5 25%, #e8ebf0 50%, #f0f2f5 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 8px;
+  }
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* Tab filter */
+  .tabs {
+    display: flex;
+    gap: 6px;
+    padding: 0 14px;
+    margin-bottom: 14px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tabs .tab {
+    flex-shrink: 0;
+    padding: 6px 16px;
+    border-radius: 16px;
+    font-size: 13px;
+    background: #e8eaf0;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    white-space: nowrap;
+  }
+  .tabs .tab.active {
+    background: #1a1a2e;
+    color: #fff;
+  }
+  .tabs .tab:active { transform: scale(0.95); }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <h1>🤖 <span>AI</span> 日报</h1>
+  <p class="subtitle">每日精选AI科技资讯 · 5分钟读懂前沿</p>
+  <div class="date-badge">📅 2026年5月25日 星期一</div>
+</div>
+
+<!-- Stats -->
+<div class="stats-bar">
+  <div class="stat"><div class="num">10</div><div class="label">今日资讯</div></div>
+  <div class="stat"><div class="num">🔥</div><div class="label">实时热点</div></div>
+  <div class="stat"><div class="num">∞</div><div class="label">每日更新</div></div>
+</div>
+
+<!-- Tabs -->
+<div class="tabs">
+  <button class="tab active">全部</button>
+  <button class="tab">大模型</button>
+  <button class="tab">商业</button>
+  <button class="tab">安全</button>
+  <button class="tab">政策</button>
+  <button class="tab">前沿科技</button>
+</div>
+
+<div class="container">
+
+  <!-- News 1 -->
+  <div class="news-card" data-tag="大模型">
+    <div class="card-header">
+      <span class="badge" style="background:#4361ee;">1</span>
+      <span class="tag">大模型</span>
+      <span class="hot">🔥 热门</span>
+    </div>
+    <h2>📊 斯坦福2026 AI指数：中美顶尖模型差距缩至"发丝之细"</h2>
+    <p>最新斯坦福HAI报告显示，Anthropic位居全球榜首，xAI、Google、OpenAI紧随其后，中国DeepSeek、阿里进入第一梯队。报告指出，胜负已不再是性能之争，而是成本、可靠性、可用性之争。中国AI Token调用量已连续多周超越美国。</p>
+  </div>
+
+  <!-- News 2 -->
+  <div class="news-card" data-tag="大模型">
+    <div class="card-header">
+      <span class="badge" style="background:#27ae60;">2</span>
+      <span class="tag">大模型</span>
+      <span class="hot">🔥 热门</span>
+    </div>
+    <h2>💰 DeepSeek宣布永久降价：2.5折优惠永久化</h2>
+    <p>DeepSeek 5月22日宣布，V4-Pro API的限时2.5折优惠将永久保留。新费率：输入（缓存命中）0.025元/百万Token，输出6元/百万Token。对比GPT-5.5输出216元，便宜超30倍。梁文锋表示"技术边界拓展优先于变现"。</p>
+    <div class="highlight-box">✅ 不是涨价，而是逆市永久降价——同行业豆包开启收费、云厂商集体涨价的背景下，DeepSeek反其道而行。</div>
+  </div>
+
+  <!-- News 3 -->
+  <div class="news-card" data-tag="大模型">
+    <div class="card-header">
+      <span class="badge" style="background:#e67e22;">3</span>
+      <span class="tag">大模型</span>
+    </div>
+    <h2>🚀 Google I/O 2026：Gemini 3.5 / Omni / Spark 连发</h2>
+    <p>5月19日Google I/O：Gemini 3.5 Flash（性能超3.1 Pro，$1.5/M输入）、Gemini Omni（统一文图视频生成）、Gemini Spark（24/7 AI Agent可后台操作Gmail/Sheets/Drive）。AI Ultra从$250降至$100/月，取消每日提示限制。</p>
+  </div>
+
+  <!-- News 4 -->
+  <div class="news-card" data-tag="商业">
+    <div class="card-header">
+      <span class="badge" style="background:#8e44ad;">4</span>
+      <span class="tag">商业</span>
+    </div>
+    <h2>🏢 OpenAI递交IPO文件，目标9月上市</h2>
+    <p>5月22日向SEC提交IPO注册声明，高盛和摩根士丹利联合承销，估值$8520亿。加州陪审团裁定马斯克诉讼因诉讼时效已过被驳回，扫清IPO法律障碍。但OpenAI每收入$1亏损$1.22，年化亏损约$50亿。</p>
+  </div>
+
+  <!-- News 5 -->
+  <div class="news-card" data-tag="商业">
+    <div class="card-header">
+      <span class="badge" style="background:#c0392b;">5</span>
+      <span class="tag">商业</span>
+    </div>
+    <h2>📈 Anthropic首次盈利，Karpathy从OpenAI加盟</h2>
+    <p>Anthropic Q2营收$109亿（环比+130%），预计首次盈利$5.59亿。正推进$300亿融资，估值$9000亿超越OpenAI。OpenAI联合创始人Andrej Karpathy宣布加入Anthropic，领导"用Claude加速训练Claude"的研究。</p>
+  </div>
+
+  <!-- News 6 -->
+  <div class="news-card" data-tag="安全">
+    <div class="card-header">
+      <span class="badge" style="background:#f39c12;">6</span>
+      <span class="tag">安全</span>
+    </div>
+    <h2>⚠️ "银狐"木马新变种：伪装裁员补偿短信</h2>
+    <p>国家计算机病毒应急处理中心预警："银狐"木马新变种伪装成"裁员补偿""违纪通报"等敏感标题短信传播，专门针对国内用户。</p>
+  </div>
+
+  <!-- News 7 -->
+  <div class="news-card" data-tag="政策">
+    <div class="card-header">
+      <span class="badge" style="background:#2d6a4f;">7</span>
+      <span class="tag">政策</span>
+    </div>
+    <h2>📜 中国AI拟人化互动服务管理暂行办法实施</h2>
+    <p>网信办出台的《人工智能拟人化互动服务管理暂行办法》正式实施，对AI聊天机器人、虚拟数字人提出监管要求，涵盖内容安全、用户隐私、算法透明度，标志着中国AI监管进入新阶段。</p>
+  </div>
+
+  <!-- News 8 -->
+  <div class="news-card" data-tag="前沿科技">
+    <div class="card-header">
+      <span class="badge" style="background:#2980b9;">8</span>
+      <span class="tag">前沿科技</span>
+    </div>
+    <h2>🎬 国产AI视频崛起：字节Seedance 2.0海外爆火</h2>
+    <p>字节跳动Seedance 2.0支持多镜头、多模态输入，生成效果媲美电影大片。好莱坞导演称能在短时间内低成本制作预告片，马斯克感叹其发展速度。中国开源模型全球下载量位居第一。</p>
+  </div>
+
+  <!-- News 9 -->
+  <div class="news-card" data-tag="前沿科技">
+    <div class="card-header">
+      <span class="badge" style="background:#16a085;">9</span>
+      <span class="tag">前沿科技</span>
+    </div>
+    <h2>🚀 神舟二十三号成功发射｜首位香港航天员</h2>
+    <p>5月24日晚23:08升空，今晨对接空间站。黎家盈成首位香港航天员（警察→博士→母亲→航天员四重身份）。中国航天从"一人一天"迈向一年期在轨驻留。</p>
+  </div>
+
+  <!-- News 10 -->
+  <div class="news-card" data-tag="前沿科技">
+    <div class="card-header">
+      <span class="badge" style="background:#9b59b6;">10</span>
+      <span class="tag">前沿科技</span>
+    </div>
+    <h2>🔬 AI攻克80年数学难题｜五角大楼签约7巨头</h2>
+    <p>OpenAI模型自主推翻Erdős单位距离猜想（80年未解），生成125页证明，获菲尔兹奖得主好评。同周美国五角大楼与亚马逊、谷歌、微软、SpaceX等7家公司签约机密AI部署。</p>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<div class="update-info">
+  <div class="time">🔄 每日更新 · 数据来源：斯坦福HAI / Reuters / Bloomberg / 新华网</div>
+  <p style="margin-top:8px;">AI日报 · 每日为您追踪前沿科技 🔍</p>
+</div>
+
+<script>
+  // Simple tab filtering
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const filter = tab.textContent.trim();
+      document.querySelectorAll('.news-card').forEach(card => {
+        if (filter === '全部') {
+          card.style.display = 'block';
+        } else {
+          card.style.display = card.dataset.tag === filter ? 'block' : 'none';
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>
