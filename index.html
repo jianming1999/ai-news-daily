@@ -2,556 +2,232 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>AI 日报｜每日AI科技资讯</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>备考刷题站｜AI训练师·软考题库</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', 'Microsoft YaHei', sans-serif;
-    background: #f0f2f5;
-    color: #2c3e50;
-    line-height: 1.6;
-  }
-  a { color: #4361ee; text-decoration: none; }
-  a:hover { text-decoration: underline; }
-
-  /* Header */
-  .header {
-    background: linear-gradient(135deg, #0f0c29 0%, #1a1a2e 40%, #16213e 100%);
-    color: #fff;
-    padding: 36px 20px 28px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .header::before {
-    content: '';
-    position: absolute;
-    top: -60%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at 30% 50%, rgba(102,126,234,0.12) 0%, transparent 60%);
-    animation: aurora 6s ease-in-out infinite alternate;
-  }
-  @keyframes aurora {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(30px, -20px) scale(1.1); }
-  }
-  .header h1 {
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    position: relative;
-    z-index: 1;
-  }
-  .header h1 .accent { color: #667eea; }
-  .header .subtitle {
-    font-size: 13px;
-    color: #8899bb;
-    margin-top: 6px;
-    position: relative;
-    z-index: 1;
-  }
-  .header .badge-row {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 12px;
-    position: relative;
-    z-index: 1;
-    flex-wrap: wrap;
-  }
-  .header .badge-row span {
-    display: inline-block;
-    padding: 3px 14px;
-    border-radius: 20px;
-    font-size: 12px;
-    background: rgba(102,126,234,0.15);
-    border: 1px solid rgba(102,126,234,0.25);
-    color: #aabbdd;
-  }
-
-  /* Nav */
-  .nav-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #fff;
-    padding: 10px 16px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .nav-bar .site-name {
-    font-size: 15px;
-    font-weight: 600;
-    color: #1a1a2e;
-  }
-  .nav-bar .site-name .dot {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #27ae60;
-    margin-right: 6px;
-    animation: blink 2s infinite;
-  }
-  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-  .nav-bar .update-time {
-    font-size: 11px;
-    color: #8899aa;
-  }
-
-  /* Tabs */
-  .tabs-wrap {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding: 12px 14px 8px;
-    background: #fff;
-    border-bottom: 1px solid #eee;
-  }
-  .tabs-wrap::-webkit-scrollbar { display: none; }
-  .tabs {
-    display: flex;
-    gap: 6px;
-  }
-  .tabs .tab {
-    flex-shrink: 0;
-    padding: 6px 18px;
-    border-radius: 16px;
-    font-size: 13px;
-    background: #f0f2f5;
-    color: #666;
-    cursor: pointer;
-    transition: all 0.2s;
-    border: none;
-    white-space: nowrap;
-  }
-  .tabs .tab:active { transform: scale(0.95); }
-  .tabs .tab.active {
-    background: #1a1a2e;
-    color: #fff;
-  }
-
-  /* Container */
-  .container { max-width: 720px; margin: 0 auto; padding: 10px 14px 20px; }
-
-  /* News Card */
-  .news-card {
-    background: #fff;
-    border-radius: 14px;
-    padding: 18px 18px 16px;
-    margin-bottom: 12px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-    transition: transform 0.2s, box-shadow 0.2s;
-    cursor: default;
-  }
-  .news-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.07);
-  }
-  .news-card .card-top {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 8px;
-  }
-  .news-card .badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 26px;
-    height: 26px;
-    border-radius: 13px;
-    font-size: 12px;
-    font-weight: 700;
-    color: #fff;
-    padding: 0 10px;
-  }
-  .news-card .tag {
-    font-size: 11px;
-    color: #8899aa;
-    background: #f0f2f5;
-    padding: 2px 12px;
-    border-radius: 10px;
-  }
-  .news-card .hot {
-    font-size: 11px;
-    color: #e74c3c;
-  }
-  .news-card h2 {
-    font-size: 16px;
-    font-weight: 600;
-    color: #1a1a2e;
-    margin-bottom: 6px;
-    line-height: 1.5;
-  }
-  .news-card p {
-    font-size: 14px;
-    color: #555;
-    line-height: 1.75;
-  }
-  .news-card .highlight-box {
-    background: #f8f9ff;
-    border-left: 3px solid #667eea;
-    border-radius: 4px;
-    padding: 10px 14px;
-    margin-top: 10px;
-    font-size: 13px;
-    color: #667;
-  }
-  .news-card .source-row {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 10px;
-    padding: 6px 12px;
-    background: #f5f6ff;
-    border-radius: 6px;
-    font-size: 12px;
-    color: #667;
-  }
-  .news-card .source-row .label {
-    color: #8899aa;
-    font-size: 11px;
-  }
-  .news-card .source-row a {
-    color: #4361ee;
-    font-weight: 500;
-  }
-
-  /* Empty state */
-  .empty-state {
-    text-align: center;
-    padding: 60px 20px;
-    color: #8899aa;
-    display: none;
-  }
-  .empty-state .icon { font-size: 48px; margin-bottom: 12px; }
-
-  /* Footer */
-  .footer {
-    text-align: center;
-    padding: 30px 20px 24px;
-    max-width: 720px;
-    margin: 0 auto;
-  }
-  .footer .github-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 20px;
-    border-radius: 20px;
-    background: #1a1a2e;
-    color: #fff;
-    font-size: 13px;
-    transition: all 0.2s;
-  }
-  .footer .github-link:hover {
-    background: #2d2d5e;
-    text-decoration: none;
-  }
-  .footer .meta {
-    font-size: 12px;
-    color: #aaa;
-    margin-top: 12px;
-  }
-  .footer .meta a {
-    color: #667eea;
-  }
-
-  /* Skeleton loading */
-  .skeleton {
-    background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
-    border-radius: 8px;
-  }
-  @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-
-  @media (max-width: 480px) {
-    .header h1 { font-size: 22px; }
-    .news-card { padding: 14px; border-radius: 12px; }
-  }
+:root{--blue:#2563eb;--blue-dark:#1d4ed8;--ink:#1f2937;--muted:#64748b;--line:#e5e7eb;--bg:#f5f7fb;--card:#fff;--safe-bottom:env(safe-area-inset-bottom,0px)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Helvetica Neue','Microsoft YaHei',Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden}
+button,input,textarea,select{font:inherit;max-width:100%}
+a{color:var(--blue);word-break:break-all}
+.hero{background:linear-gradient(135deg,#111827 0%,#1e3a8a 55%,#2563eb 100%);color:#fff;padding:clamp(24px,6vw,42px) 18px 26px;text-align:center;position:relative;overflow:hidden}
+.hero:before{content:'';position:absolute;inset:-80px;background:radial-gradient(circle at 25% 30%,rgba(96,165,250,.35),transparent 35%),radial-gradient(circle at 80% 10%,rgba(167,139,250,.25),transparent 30%);animation:float 8s ease-in-out infinite alternate}
+@keyframes float{to{transform:translateY(24px)}}
+.hero>*{position:relative}.hero h1{font-size:clamp(22px,6vw,32px);letter-spacing:1px;margin-bottom:8px}.hero p{font-size:clamp(13px,3.8vw,15px);color:#dbeafe;max-width:760px;margin:0 auto}.badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}.badges span{font-size:12px;padding:4px 12px;border:1px solid rgba(255,255,255,.25);border-radius:999px;background:rgba(255,255,255,.1)}
+.topbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);box-shadow:0 1px 8px rgba(15,23,42,.04)}
+.tabs{display:flex;gap:8px;overflow-x:auto;overscroll-behavior-x:contain;padding:10px max(12px,env(safe-area-inset-left)) 10px max(12px,env(safe-area-inset-left));scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}
+.tab{white-space:nowrap;border:none;background:#eef2ff;color:#334155;border-radius:999px;padding:9px 15px;font-size:14px;min-height:40px}.tab.active{background:var(--blue-dark);color:#fff}
+.wrap{width:min(100%,960px);margin:0 auto;padding:16px clamp(12px,3vw,20px)}
+.panel{display:none}.panel.active{display:block}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 4px 14px rgba(15,23,42,.04);min-width:0}.subject-card h2{font-size:18px;margin-bottom:8px}.subject-card p,.q-title,.answer,.notice{word-break:break-word;overflow-wrap:anywhere}.meta{font-size:12px;color:var(--muted);margin:6px 0}.pillrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.pill{font-size:12px;color:var(--blue-dark);background:#eff6ff;padding:3px 8px;border-radius:999px}
+.btn{border:none;border-radius:12px;padding:10px 14px;background:var(--blue);color:#fff;font-weight:600;cursor:pointer;min-height:42px;text-align:center}.btn.secondary{background:#e5e7eb;color:#1f2937}.btn.ghost{background:#fff;color:var(--blue);border:1px solid #bfdbfe}.btn:active{transform:scale(.98)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.actions select{appearance:none;background:#e5e7eb;color:#111;min-width:180px}
+.section-title{font-size:18px;margin:8px 0 12px}.exam-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:10px}.info-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px;min-width:0}.info-box b{display:block;margin-bottom:4px}.filters{display:flex;gap:8px;overflow-x:auto;overscroll-behavior-x:contain;margin-bottom:12px;padding-bottom:2px;scrollbar-width:none}.filters::-webkit-scrollbar{display:none}.filter{border:none;border-radius:999px;background:#e2e8f0;padding:8px 13px;font-size:13px;white-space:nowrap;min-height:38px}.filter.active{background:#111827;color:#fff}
+.question{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px;min-width:0}.q-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px;align-items:flex-start}.q-title{font-weight:700;min-width:0}.q-tag{font-size:12px;color:var(--muted);background:#f1f5f9;border-radius:999px;padding:2px 8px;white-space:nowrap;flex-shrink:0}.options{display:grid;gap:8px;margin-top:10px}.option{border:1px solid var(--line);border-radius:12px;padding:10px 11px;background:#fff;cursor:pointer;display:flex;gap:8px;align-items:flex-start;word-break:break-word}.option input{margin-top:4px;flex-shrink:0}.option.selected{border-color:var(--blue);background:#eff6ff}.option.correct{border-color:#16a34a;background:#f0fdf4}.option.wrong{border-color:#dc2626;background:#fef2f2}.answer{display:none;margin-top:10px;padding:10px;border-radius:12px;background:#f8fafc;color:#334155;font-size:14px}.answer.show{display:block}
+.exam-header{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px}.timer{font-weight:800;color:#dc2626;background:#fff1f2;border-radius:999px;padding:6px 12px;white-space:nowrap}.progress{height:8px;background:#e5e7eb;border-radius:999px;overflow:hidden;margin:10px 0}.progress span{display:block;height:100%;background:var(--blue);width:0}.result{background:#ecfdf5;border:1px solid #bbf7d0;border-radius:16px;padding:16px;margin-bottom:12px}.muted{color:var(--muted);font-size:13px}.footer{text-align:center;color:#94a3b8;font-size:12px;padding:28px 10px calc(28px + var(--safe-bottom))}.notice{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:14px;padding:12px;margin-bottom:12px;font-size:13px}
+textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:10px;resize:vertical}
+@media (hover:hover){.tab:hover,.filter:hover,.btn:hover{filter:brightness(.98)}}
+@media (max-width:760px){
+  .hero{padding:22px 14px 18px}.badges{gap:6px}.badges span{font-size:11px;padding:3px 9px}.wrap{padding:12px}.card,.question{border-radius:14px;padding:14px}.grid,.exam-info{grid-template-columns:1fr}.section-title{font-size:17px}.actions{display:grid;grid-template-columns:1fr 1fr}.actions .btn,.actions select{width:100%;min-width:0}.exam-header{position:sticky;top:58px;z-index:10;background:var(--bg);padding:6px 0}.q-head{display:grid;grid-template-columns:1fr auto}.option{padding:11px 10px}.topbar{box-shadow:0 2px 10px rgba(15,23,42,.06)}
+}
+@media (max-width:480px){
+  .tabs{padding:8px 10px}.tab{font-size:13px;padding:8px 12px;min-height:38px}.hero h1{font-size:22px}.hero p{font-size:13px}.actions{grid-template-columns:1fr}.btn{width:100%}.q-head{display:block}.q-tag{display:inline-block;margin-top:8px}.question{padding:13px}.option{font-size:15px}.answer,.notice,.muted{font-size:13px}.exam-header{top:54px}.timer{font-size:13px;padding:5px 10px}.filters{margin-left:-2px;margin-right:-2px}.filter{font-size:12px;padding:7px 11px}.subject-card h2{font-size:17px}.pill{font-size:11px}.card{padding:13px}
+}
+@media (max-width:360px){.hero{padding-left:10px;padding-right:10px}.wrap{padding-left:10px;padding-right:10px}.tab{padding-left:10px;padding-right:10px}.badges span{max-width:100%}}
 </style>
-</head>
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate"><meta name="build" content="exam-site-static-subjects-202605280212"></head>
 <body>
-
-<!-- Header -->
-<div class="header">
-  <h1>🤖 <span class="accent">AI</span> 日报</h1>
-  <p class="subtitle">每日精选 AI 科技资讯 · 5 分钟读懂前沿</p>
-  <div class="badge-row">
-    <span id="dateDisplay">📅 加载中...</span>
-    <span>📰 16 条资讯</span>
-    <span>🔄 每日更新</span>
-  </div>
-</div>
-
-<!-- Nav -->
-<div class="nav-bar">
-  <div class="site-name"><span class="dot"></span>AI 日报</div>
-  <div class="update-time" id="updateTime">更新于 刚刚</div>
-</div>
-
-<!-- Tabs -->
-<div class="tabs-wrap">
-  <div class="tabs" id="tabContainer">
-    <button class="tab active" data-filter="all">📋 全部</button>
-    <button class="tab" data-filter="大模型">🧠 大模型</button>
-    <button class="tab" data-filter="商业">💼 商业</button>
-    <button class="tab" data-filter="安全">🛡️ 安全</button>
-    <button class="tab" data-filter="政策">📜 政策</button>
-    <button class="tab" data-filter="前沿科技">🔬 前沿</button>
-  </div>
-</div>
-
-<div class="container" id="newsContainer">
-
-  <!-- 📅 2026年5月25日 更新 -->
-  <div style="text-align:center;padding:20px 0 12px;color:#667eea;font-weight:600;font-size:15px;border-top:none;">
-    📅 2026年5月25日 更新
-  </div>
-
-  <!-- New 1 -->
-  <div class="news-card" data-tag="前沿科技">
-    <div class="card-top">
-      <span class="badge" style="background:#e74c3c;">N1</span>
-      <span class="tag">前沿科技</span>
-      <span class="hot">🔥 重磅</span>
-    </div>
-    <h2>🧬 ScienceDaily 重磅研究：生成式 AI 在超 10 万人对比中首次击败人类</h2>
-    <p>5月25日《ScienceDaily》发表了一项大规模研究，对超过 10 万人与当今最先进的 AI 系统进行比较，结果令人震惊：<strong>生成式 AI 在多项认知任务中已超越人类平均水平</strong>。研究覆盖推理、创造力、复杂问题解决等领域，标志着 AI 能力进入了一个全新阶段。这是迄今为止规模最大的人机能力对比研究之一。</p>
-    <div class="source-row"><span class="label">📎 来源</span><a href="https://www.sciencedaily.com/news/computers_math/artificial_intelligence" target="_blank">ScienceDaily</a></div>
-  </div>
-
-  <!-- New 2 -->
-  <div class="news-card" data-tag="商业">
-    <div class="card-top">
-      <span class="badge" style="background:#8e44ad;">N2</span>
-      <span class="tag">商业</span>
-    </div>
-    <h2>🤝 Cohere 收购德国 AI 明星 Aleph Alpha，估值 200 亿美元剑指"主权 AI"</h2>
-    <p>加拿大 AI 公司 Cohere 于 4 月 24 日宣布收购德国 AI 公司 Aleph Alpha，合并后估值约 <strong>200 亿美元</strong>。交易获德国和加拿大政府支持，德国零售巨头施瓦茨集团承诺投资 6 亿美元。此次收购标志着"主权 AI"（Sovereign AI）趋势加速——各国希望建立独立于美国科技巨头的本地 AI 能力。</p>
-    <div class="source-row"><span class="label">📎 来源</span><a href="https://www.mittrchina.com/news/detail/16242" target="_blank">DeepTech / MIT Tech Review</a></div>
-  </div>
-
-  <!-- New 3 -->
-  <div class="news-card" data-tag="商业">
-    <div class="card-top">
-      <span class="badge" style="background:#2d6a4f;">N3</span>
-      <span class="tag">商业</span>
-    </div>
-    <h2>🏭 长鑫科技科创板 IPO 下周审议：中国第一 DRAM 厂商 Q1 净利 247 亿</h2>
-    <p>上交所将于 5 月 27 日审议长鑫科技科创板 IPO。作为中国第一、全球第四大 DRAM 厂商，长鑫科技 2026 年 Q1 净利润达 <strong>247.62 亿元</strong>，上半年预期营收 1100-1200 亿元。公司采用 A 股史上最大个人股权激励，创始人朱一明承诺让渡 7.68 亿股给员工。若成功上市，合肥国资有望获高额回报。</p>
-    <div class="source-row"><span class="label">📎 来源</span><a href="https://finance.sina.cn" target="_blank">新浪财经</a></div>
-  </div>
-
-  <!-- New 4 -->
-  <div class="news-card" data-tag="大模型">
-    <div class="card-top">
-      <span class="badge" style="background:#4361ee;">N4</span>
-      <span class="tag">大模型</span>
-    </div>
-    <h2>📊 清华专家共识：AI 范式已从"聊天"转向"做事"，智能体时代全面开启</h2>
-    <p>清华大学主办的"AGI-Next"峰会形成行业共识：以对话为核心的"Chat"范式已告终结，AI 竞争转向<strong>"能办事"的智能体（Agent）时代</strong>。张亚勤院士指出中国正"拥抱更轻的模型、更聪明的架构、更高的效率和更低的价格"。中国信息通信研究院报告显示，基础模型数量正持续收敛，在真实场景中的应用效果成为竞争焦点。</p>
-    <div class="source-row"><span class="label">📎 来源</span><a href="https://www.tsinghua.edu.cn/info/1182/124190.htm" target="_blank">清华大学 / 新华社</a></div>
-  </div>
-
-  <!-- New 5 -->
-  <div class="news-card" data-tag="商业">
-    <div class="card-top">
-      <span class="badge" style="background:#c0392b;">N5</span>
-      <span class="tag">商业</span>
-    </div>
-    <h2>⚠️ 美银发出史上最强 AI 泡沫预警：市值集中度逼近 1880 年铁路泡沫</h2>
-    <p>美银首席策略师 Hartnett 发出警告：AI 市值集中度已逼近 1880 年铁路泡沫极限，牛熊指标触发卖出信号。但他建议减仓仍为时尚早，需等待 SpaceX 与 OpenAI 历史级 IPO 落地及 CPI 攀升至 4%-5% 触发政策收紧。同时，A 股 7 家半导体/AI 公司上周密集发布减持公告，计划减持总规模达 <strong>126.92 亿元</strong>。</p>
-    <div class="source-row"><span class="label">📎 来源</span><a href="https://finance.sina.cn" target="_blank">新浪财经 / 美银报告</a></div>
-  </div>
-
-  <!-- New 6 -->
-  <div class="news-card" data-tag="前沿科技">
-    <div class="card-top">
-      <span class="badge" style="background:#2980b9;">N6</span>
-      <span class="tag">前沿科技</span>
-    </div>
-    <h2>🔬 AI 诊断真实病例准确率超医生，哈佛团队称医学评估标准或需重写</h2>
-    <p>最新研究显示，AI 在真实临床病例中表现出与医生相当甚至更高的准确率。不同于在训练数据集上获得 SOTA，本次测试证明 AI 在<strong>临床实战中独立给出诊断推理</strong>，而非背诵标准答案。哈佛研究团队认为，这意味着现行医学评估标准或应重新改写。</p>
-    <div class="source-row"><span class="label">📎 来源</span><a href="https://www.mittrchina.com/news/detail/16242" target="_blank">DeepTech / MIT Tech Review</a></div>
-  </div>
-
-  <!-- 1 -->
-  <div class="news-card" data-tag="大模型">
-    <div class="card-top">
-      <span class="badge" style="background:#4361ee;">1</span>
-      <span class="tag">大模型</span>
-      <span class="hot">🔥</span>
-    </div>
-    <h2>📊 斯坦福 2026 AI 指数：中美顶尖模型差距缩至"发丝之细"</h2>
-    <p>最新斯坦福 HAI 报告显示，Anthropic 位居全球模型排行榜榜首，xAI、Google、OpenAI 紧随其后，中国 DeepSeek、阿里巴巴也进入第一梯队。报告指出，顶尖模型之间的胜负已不再是纯性能之争，而是<strong>成本、可靠性、实际可用性</strong>之争。中国 AI 模型的 Token 调用量已连续多周超越美国。</p>
-    <div class="source-row"><span class="label">📎 来源</span><a href="https://hai.stanford.edu/ai-index" target="_blank">Stanford HAI &rarr;</a></div>
-  </div>
-
-  <!-- 2 -->
-  <div class="news-card" data-tag="大模型">
-    <div class="card-top">
-      <span class="badge" style="background:#27ae60;">2</span>
-      <span class="tag">大模型</span>
-      <span class="hot">💰</span>
-    </div>
-    <h2>DeepSeek 宣布永久降价：V4-Pro 2.5 折优惠永久化</h2>
-    <p>DeepSeek 5月22日宣布重磅消息：V4-Pro 模型 API 的<strong>2.5 折限时优惠将永久保留</strong>。原计划6月恢复原价，现确认改为永久定价——新费率：输入（缓存命中）<strong>0.025 元</strong>/百万 Token，输出 <strong>6 元</strong>/百万 Token，创全球大模型价格新低。对比 GPT-5.5 的输出价格（216 元/百万 Token），便宜超 30 倍。创始人梁文锋表示"技术边界拓展优先于变现"。</p>
-    <div class="highlight-box">✅ 不是涨价！在同行业豆包开启收费、云厂商集体涨价的背景下，DeepSeek 反向操作，将限时优惠变为永久定价。</div>
-    <div class="source-row"><span class="label">📎 来源</span><a href="https://api-docs.deepseek.com" target="_blank">DeepSeek 官方公告 &rarr;</a></div>
-  </div>
-
-  <!-- 3 -->
-  <div class="news-card" data-tag="大模型">
-    <div class="card-top">
-      <span class="badge" style="background:#e67e22;">3</span>
-      <span class="tag">大模型</span>
-    </div>
-    <h2>🚀 Google I/O 2026：Gemini 3.5 / Omni / Spark 连发</h2>
-    <p>5月19日 Google I/O 成为今年 AI 产品密度最高的一场发布会：<strong>Gemini 3.5 Flash</strong>（性能超3.1 Pro，$1.5/M 输入 Token）、<strong>Gemini Omni</strong>（统一文本/图像/视频生成，一个窗口搞定所有创作）、<strong>Gemini Spark</strong>（24/7 全天候 AI Agent，后台操作 Gmail/Sheets/Drive）。AI Ultra 订阅从 $250 降至 <strong>$100/月</strong>，取消每日提示限制。CEO 皮查伊宣布 Gemini 月活已达 9 亿。</p>
-    <div class="source-row"><span class="label">📎 来源</span><a href="https://blog.google" target="_blank">Google Blog &rarr;</a></div>
-  </div>
-
-  <!-- 4 -->
-  <div class="news-card" data-tag="商业">
-    <div class="card-top">
-      <span class="badge" style="background:#8e44ad;">4</span>
-      <span class="tag">商业</span>
-    </div>
-    <h2>🏢 OpenAI 递交 IPO 文件，目标 9 月上市</h2>
-    <p>5月22日 OpenAI 向 SEC 提交 IPO 注册声明，高盛和摩根士丹利联合承销。当前估值 <strong>$8520 亿</strong>，若按 $1 万亿上市，将成为<strong>史上最大科技 IPO</strong>。同期加州陪审团裁定马斯克诉讼因诉讼时效已过被驳回，扫清 IPO 关键法律障碍。不过 OpenAI 仍处亏损状态——每收入 $1 亏损 $1.22，年化亏损约 $50 亿。</p>
-    <div class="source-row"><span class="label">📎 来源</span><a href="https://reuters.com" target="_blank">Reuters / CNBC &rarr;</a></div>
-  </div>
-
-  <!-- 5 -->
-  <div class="news-card" data-tag="商业">
-    <div class="card-top">
-      <span class="badge" style="background:#c0392b;">5</span>
-      <span class="tag">商业</span>
-    </div>
-    <h2>📈 Anthropic 首次盈利，Karpathy 从 OpenAI 加盟</h2>
-    <p>Anthropic Q2 营收 <strong>$109 亿</strong>（环比 +130%），预计首次实现 $5.59 亿运营利润。正推进 <strong>$300 亿融资</strong>，估值 <strong>$9000 亿</strong>，首次超越 OpenAI 的 $8520 亿。同时，OpenAI 联合创始人 Andrej Karpathy 宣布加入 Anthropic，领导"用 Claude 加速训练 Claude"的 AI 辅助 AI 研究，被视为人才流向的标志性转折。</p>
-    <div class="source-row"><span class="label">📎 来源</span><a href="https://bloomberg.com" target="_blank">Bloomberg / FT &rarr;</a></div>
-  </div>
-
-  <!-- 6 -->
-  <div class="news-card" data-tag="安全">
-    <div class="card-top">
-      <span class="badge" style="background:#f39c12;">6</span>
-      <span class="tag">安全</span>
-    </div>
-    <h2>⚠️ "银狐"木马新变种：伪装裁员补偿短信</h2>
-    <p>国家计算机病毒应急处理中心发布预警：专门针对国内用户的"银狐"木马病毒出现新变种，伪装成<strong>"裁员补偿""违纪通报"</strong>等敏感标题短信传播。收到含链接的"公司通知"短信务必先核实再点击，谨防中招。</p>
-    <div class="source-row"><span class="label">📎 来源</span><a href="https://www.cert.org.cn" target="_blank">国家病毒应急处理中心 &rarr;</a></div>
-  </div>
-
-  <!-- 7 -->
-  <div class="news-card" data-tag="政策">
-    <div class="card-top">
-      <span class="badge" style="background:#2d6a4f;">7</span>
-      <span class="tag">政策</span>
-    </div>
-    <h2>📜 中国《人工智能拟人化互动服务管理暂行办法》落地</h2>
-    <p>国家网信办出台的《人工智能拟人化互动服务管理暂行办法》正式实施，对 AI 聊天机器人、虚拟数字人等拟人化 AI 服务提出监管要求，涵盖<strong>内容安全、用户隐私、算法透明度</strong>等方面。这标志着中国 AI 监管从鼓励创新进入规范化治理新阶段。</p>
-    <div class="source-row"><span class="label">📎 来源</span><a href="https://www.cac.gov.cn" target="_blank">中国网信办 &rarr;</a></div>
-  </div>
-
-  <!-- 8 -->
-  <div class="news-card" data-tag="前沿科技">
-    <div class="card-top">
-      <span class="badge" style="background:#2980b9;">8</span>
-      <span class="tag">前沿科技</span>
-    </div>
-    <h2>🎬 国产 AI 视频崛起：字节 Seedance 2.0 海外爆火</h2>
-    <p>字节跳动发布的 AI 视频模型 Seedance 2.0 在海外引发热潮，支持多镜头、多模态输入，生成效果媲美电影大片。好莱坞导演称能在短时间内以低本制作预告片，马斯克也感叹其发展速度。同期中国开源模型全球下载量位居第一，国产 AI 在性价比和开放度上的优势持续扩大。</p>
-    <div class="source-row"><span class="label">📎 来源</span><a href="https://techcrunch.com" target="_blank">TechCrunch / 新浪科技 &rarr;</a></div>
-  </div>
-
-  <!-- 9 -->
-  <div class="news-card" data-tag="前沿科技">
-    <div class="card-top">
-      <span class="badge" style="background:#16a085;">9</span>
-      <span class="tag">前沿科技</span>
-    </div>
-    <h2>🚀 神舟二十三号成功发射｜首位香港航天员进入太空</h2>
-    <p>5月24日晚 23:08 神舟二十三号载人飞船成功发射，今晨已对接空间站，完成中国航天员第 8 次"太空会师"。<strong>黎家盈</strong>成为<strong>首位香港航天员</strong>，这位曾是警察、博士、母亲的"四重身份"女航天员在太空中展示五星红旗并比心，引全网刷屏。中国载人航天正从"一人一天"迈向一年期在轨驻留。</p>
-    <div class="source-row"><span class="label">📎 来源</span><a href="https://www.cmse.gov.cn" target="_blank">中国载人航天工程办公室 &rarr;</a></div>
-  </div>
-
-  <!-- 10 -->
-  <div class="news-card" data-tag="前沿科技">
-    <div class="card-top">
-      <span class="badge" style="background:#9b59b6;">10</span>
-      <span class="tag">前沿科技</span>
-    </div>
-    <h2>🔬 AI 攻克 80 年数学难题 & 五角大楼签约 7 巨头</h2>
-    <p>两则前沿动态：OpenAI 内部推理模型自主推翻<strong>Erdős 单位距离猜想</strong>（1946 年提出，近 80 年未解），独立生成 <strong>125 页证明</strong>，获菲尔兹奖得主 Tim Gowers 评价为"AI 数学的里程碑"。同周美国五角大楼宣布与亚马逊、谷歌、微软、SpaceX 等七家科技巨头签署协议，在机密网络中部署先进 AI，推进"AI 优先作战力量"。</p>
-    <div class="source-row"><span class="label">📎 来源</span><a href="https://openai.com" target="_blank">OpenAI / 美国国防部 &rarr;</a></div>
-  </div>
-
-  <!-- Empty state -->
-  <div class="empty-state" id="emptyState">
-    <div class="icon">🔍</div>
-    <p>该分类暂无资讯</p>
-  </div>
-
-</div>
-
-<!-- Footer -->
-<div class="footer">
-  <a class="github-link" href="https://github.com/jianming1999/ai-news-daily" target="_blank">
-    <span>🐙</span> GitHub 仓库 <span>↗</span>
-  </a>
-  <div class="meta">
-    <p>数据来源：Stanford HAI / Reuters / Bloomberg / 新华网 / CNBC</p>
-    <p style="margin-top:4px;">
-      <a href="https://github.com/jianming1999/ai-news-daily" target="_blank">关于本站</a>
-      &nbsp;·&nbsp; Powered by OpenClaw
-    </p>
-  </div>
-</div>
-
+<header class="hero"><h1>📚 备考刷题站</h1><p>人工智能训练师三级 + 软考初级/中级/高级｜练习题 + 模拟考试 + 错题本</p><div class="badges"><span>正式备考模式</span><span>只展示已审核题</span><span>支持多科目扩展</span></div></header>
+<nav class="topbar"><div class="tabs"><button class="tab active" data-page="home">首页</button><button class="tab" data-page="practice">练习题</button><button class="tab" data-page="exam">模拟考试</button><button class="tab" data-page="wrong">错题本</button><button class="tab" data-page="about">考试说明</button></div></nav>
+<main class="wrap">
+<section id="home" class="panel active"><div class="notice">说明：本站题库已上线。如果你刚打开看到空白，说明浏览器缓存了旧页面，请点刷新或访问带版本号的新地址。</div><h2 class="section-title">选择备考科目 <span class="muted">（已上线 1039 道题）</span></h2><div class="filters" id="levelFilters"></div><div class="grid" id="subjectGrid"><div class="card subject-card" data-level="职业技能等级：三级/高级工">
+<h2>人工智能训练师三级</h2>
+<div class="meta">职业技能等级：三级/高级工｜已审核题目 942 道</div>
+<p>面向数据标注、模型训练辅助、智能系统测试与应用落地。</p>
+<div class="pillrow"><span class="pill">理论知识 100分</span><span class="pill">技能考核 100分</span></div>
+<div class="actions"><a class="btn" href="#practice" data-page="practice" data-sub="ai_trainer_level3">开始练习</a><a class="btn ghost" href="#exam" data-page="exam" data-sub="ai_trainer_level3">模拟考试</a></div>
+</div><div class="card subject-card" data-level="软考中级">
+<h2>网络工程师</h2>
+<div class="meta">软考中级｜已审核题目 11 道</div>
+<p>覆盖网络基础、路由交换、网络安全、系统规划与配置。</p>
+<div class="pillrow"><span class="pill">基础知识 75分</span><span class="pill">应用技术 75分</span></div>
+<div class="actions"><a class="btn" href="#practice" data-page="practice" data-sub="network_engineer">开始练习</a><a class="btn ghost" href="#exam" data-page="exam" data-sub="network_engineer">模拟考试</a></div>
+</div><div class="card subject-card" data-level="软考中级">
+<h2>电子商务设计师</h2>
+<div class="meta">软考中级｜已审核题目 13 道</div>
+<p>覆盖电子商务基础、系统分析设计、网络营销、支付安全与项目实施。</p>
+<div class="pillrow"><span class="pill">基础知识 75分</span><span class="pill">应用技术 75分</span></div>
+<div class="actions"><a class="btn" href="#practice" data-page="practice" data-sub="ecommerce_designer">开始练习</a><a class="btn ghost" href="#exam" data-page="exam" data-sub="ecommerce_designer">模拟考试</a></div>
+</div><div class="card subject-card" data-level="软考中级">
+<h2>软件设计师</h2>
+<div class="meta">软考中级｜已审核题目 11 道</div>
+<p>覆盖软件工程、数据库、数据结构、面向对象、系统设计与程序设计。</p>
+<div class="pillrow"><span class="pill">基础知识 75分</span><span class="pill">应用技术 75分</span></div>
+<div class="actions"><a class="btn" href="#practice" data-page="practice" data-sub="software_designer">开始练习</a><a class="btn ghost" href="#exam" data-page="exam" data-sub="software_designer">模拟考试</a></div>
+</div><div class="card subject-card" data-level="软考中级">
+<h2>系统集成项目管理工程师</h2>
+<div class="meta">软考中级｜已审核题目 11 道</div>
+<p>覆盖项目管理十大知识领域、系统集成实施、招投标、合同与信息化基础。</p>
+<div class="pillrow"><span class="pill">基础知识 75分</span><span class="pill">应用技术 75分</span></div>
+<div class="actions"><a class="btn" href="#practice" data-page="practice" data-sub="system_integration_pm">开始练习</a><a class="btn ghost" href="#exam" data-page="exam" data-sub="system_integration_pm">模拟考试</a></div>
+</div><div class="card subject-card" data-level="软考中级">
+<h2>数据库系统工程师</h2>
+<div class="meta">软考中级｜已审核题目 11 道</div>
+<p>覆盖数据库原理、SQL、事务并发、数据库设计、性能优化与安全。</p>
+<div class="pillrow"><span class="pill">基础知识 75分</span><span class="pill">应用技术 75分</span></div>
+<div class="actions"><a class="btn" href="#practice" data-page="practice" data-sub="database_engineer">开始练习</a><a class="btn ghost" href="#exam" data-page="exam" data-sub="database_engineer">模拟考试</a></div>
+</div><div class="card subject-card" data-level="软考中级">
+<h2>信息安全工程师</h2>
+<div class="meta">软考中级｜已审核题目 11 道</div>
+<p>覆盖密码学、网络安全、系统安全、应用安全、风险评估和安全管理。</p>
+<div class="pillrow"><span class="pill">基础知识 75分</span><span class="pill">应用技术 75分</span></div>
+<div class="actions"><a class="btn" href="#practice" data-page="practice" data-sub="information_security_engineer">开始练习</a><a class="btn ghost" href="#exam" data-page="exam" data-sub="information_security_engineer">模拟考试</a></div>
+</div><div class="card subject-card" data-level="软考中级">
+<h2>软件评测师</h2>
+<div class="meta">软考中级｜已审核题目 2 道</div>
+<p>覆盖软件测试基础、测试设计、质量模型、自动化测试与测试管理。</p>
+<div class="pillrow"><span class="pill">基础知识 75分</span><span class="pill">应用技术 75分</span></div>
+<div class="actions"><a class="btn" href="#practice" data-page="practice" data-sub="software_evaluator">开始练习</a><a class="btn ghost" href="#exam" data-page="exam" data-sub="software_evaluator">模拟考试</a></div>
+</div><div class="card subject-card" data-level="软考中级">
+<h2>嵌入式系统设计师</h2>
+<div class="meta">软考中级｜已审核题目 0 道</div>
+<p>覆盖嵌入式硬件、实时系统、接口通信、驱动、低功耗与系统设计。</p>
+<div class="pillrow"><span class="pill">基础知识 75分</span><span class="pill">应用技术 75分</span></div>
+<div class="actions"><a class="btn" href="#practice" data-page="practice" data-sub="embedded_system_designer">开始练习</a><a class="btn ghost" href="#exam" data-page="exam" data-sub="embedded_system_designer">模拟考试</a></div>
+</div><div class="card subject-card" data-level="软考中级">
+<h2>多媒体应用设计师</h2>
+<div class="meta">软考中级｜已审核题目 0 道</div>
+<p>覆盖图形图像、音视频、动画、交互设计、多媒体系统开发与版权基础。</p>
+<div class="pillrow"><span class="pill">基础知识 75分</span><span class="pill">应用技术 75分</span></div>
+<div class="actions"><a class="btn" href="#practice" data-page="practice" data-sub="multimedia_designer">开始练习</a><a class="btn ghost" href="#exam" data-page="exam" data-sub="multimedia_designer">模拟考试</a></div>
+</div><div class="card subject-card" data-level="软考中级">
+<h2>信息系统监理师</h2>
+<div class="meta">软考中级｜已审核题目 0 道</div>
+<p>覆盖信息系统工程监理、质量进度投资控制、合同信息安全与验收。</p>
+<div class="pillrow"><span class="pill">基础知识 75分</span><span class="pill">应用技术 75分</span></div>
+<div class="actions"><a class="btn" href="#practice" data-page="practice" data-sub="information_system_supervisor">开始练习</a><a class="btn ghost" href="#exam" data-page="exam" data-sub="information_system_supervisor">模拟考试</a></div>
+</div><div class="card subject-card" data-level="软考高级">
+<h2>网络规划设计师</h2>
+<div class="meta">软考高级｜已审核题目 2 道</div>
+<p>覆盖大型网络规划、架构设计、网络安全、可靠性、项目论证与论文写作。</p>
+<div class="pillrow"><span class="pill">综合知识 75分</span><span class="pill">案例分析 75分</span><span class="pill">论文 75分</span></div>
+<div class="actions"><a class="btn" href="#practice" data-page="practice" data-sub="network_planner">开始练习</a><a class="btn ghost" href="#exam" data-page="exam" data-sub="network_planner">模拟考试</a></div>
+</div><div class="card subject-card" data-level="软考高级">
+<h2>系统架构设计师</h2>
+<div class="meta">软考高级｜已审核题目 8 道</div>
+<p>覆盖软件架构、质量属性、架构评估、云原生、分布式系统和论文写作。</p>
+<div class="pillrow"><span class="pill">综合知识 75分</span><span class="pill">案例分析 75分</span><span class="pill">论文 75分</span></div>
+<div class="actions"><a class="btn" href="#practice" data-page="practice" data-sub="system_architect">开始练习</a><a class="btn ghost" href="#exam" data-page="exam" data-sub="system_architect">模拟考试</a></div>
+</div><div class="card subject-card" data-level="软考高级">
+<h2>系统分析师</h2>
+<div class="meta">软考高级｜已审核题目 0 道</div>
+<p>覆盖需求工程、业务建模、系统分析设计、项目方法论和论文写作。</p>
+<div class="pillrow"><span class="pill">综合知识 75分</span><span class="pill">案例分析 75分</span><span class="pill">论文 75分</span></div>
+<div class="actions"><a class="btn" href="#practice" data-page="practice" data-sub="system_analyst">开始练习</a><a class="btn ghost" href="#exam" data-page="exam" data-sub="system_analyst">模拟考试</a></div>
+</div><div class="card subject-card" data-level="软考高级">
+<h2>信息系统项目管理师</h2>
+<div class="meta">软考高级｜已审核题目 11 道</div>
+<p>覆盖项目组合/项目集/项目管理、信息化战略、治理、案例分析和论文。</p>
+<div class="pillrow"><span class="pill">综合知识 75分</span><span class="pill">案例分析 75分</span><span class="pill">论文 75分</span></div>
+<div class="actions"><a class="btn" href="#practice" data-page="practice" data-sub="information_system_pm">开始练习</a><a class="btn ghost" href="#exam" data-page="exam" data-sub="information_system_pm">模拟考试</a></div>
+</div><div class="card subject-card" data-level="软考高级">
+<h2>系统规划与管理师</h2>
+<div class="meta">软考高级｜已审核题目 0 道</div>
+<p>覆盖信息系统规划、IT服务管理、组织治理、运维管理和论文写作。</p>
+<div class="pillrow"><span class="pill">综合知识 75分</span><span class="pill">案例分析 75分</span><span class="pill">论文 75分</span></div>
+<div class="actions"><a class="btn" href="#practice" data-page="practice" data-sub="system_planning_manager">开始练习</a><a class="btn ghost" href="#exam" data-page="exam" data-sub="system_planning_manager">模拟考试</a></div>
+</div><div class="card subject-card" data-level="软考初级">
+<h2>程序员</h2>
+<div class="meta">软考初级｜已审核题目 2 道</div>
+<p>覆盖程序设计基础、数据结构、数据库、操作系统、网络和基本编码能力。</p>
+<div class="pillrow"><span class="pill">基础知识 75分</span><span class="pill">应用技术 75分</span></div>
+<div class="actions"><a class="btn" href="#practice" data-page="practice" data-sub="programmer">开始练习</a><a class="btn ghost" href="#exam" data-page="exam" data-sub="programmer">模拟考试</a></div>
+</div><div class="card subject-card" data-level="软考初级">
+<h2>网络管理员</h2>
+<div class="meta">软考初级｜已审核题目 2 道</div>
+<p>覆盖网络基础、局域网维护、网络设备配置、常见故障处理与安全基础。</p>
+<div class="pillrow"><span class="pill">基础知识 75分</span><span class="pill">应用技术 75分</span></div>
+<div class="actions"><a class="btn" href="#practice" data-page="practice" data-sub="network_administrator">开始练习</a><a class="btn ghost" href="#exam" data-page="exam" data-sub="network_administrator">模拟考试</a></div>
+</div><div class="card subject-card" data-level="软考初级">
+<h2>信息处理技术员</h2>
+<div class="meta">软考初级｜已审核题目 2 道</div>
+<p>覆盖办公信息处理、数据库基础、网络基础、信息安全与应用操作。</p>
+<div class="pillrow"><span class="pill">基础知识 75分</span><span class="pill">应用技术 75分</span></div>
+<div class="actions"><a class="btn" href="#practice" data-page="practice" data-sub="information_processing_technician">开始练习</a><a class="btn ghost" href="#exam" data-page="exam" data-sub="information_processing_technician">模拟考试</a></div>
+</div></div></section>
+<section id="practice" class="panel"><h2 class="section-title">练习题</h2><div class="filters" id="practiceSubjects"></div><div class="filters" id="practiceTypes"></div><div id="practiceList"></div></section>
+<section id="exam" class="panel"><div class="exam-header"><h2 class="section-title" style="margin:0">模拟考试</h2><div class="timer" id="timer">未开始</div></div><div class="card" id="examSetup"><p class="muted">选择科目和试卷。模拟考试题型按对应考试结构配置，当前题库较少时会抽取示例题并提示扩容。</p><div class="actions"><select id="examSubject" class="btn secondary" style="color:#111"></select><select id="examPaper" class="btn secondary" style="color:#111"></select><button class="btn" id="startExamBtn">开始模拟</button></div></div><div id="examArea" style="display:none"><div class="progress"><span id="examProgress"></span></div><div id="examQuestions"></div><div class="actions"><button class="btn" id="submitExamBtn">交卷并查看结果</button><button class="btn secondary" id="cancelExamBtn">退出考试</button></div></div><div id="examResult"></div></section>
+<section id="wrong" class="panel"><h2 class="section-title">错题本</h2><div id="wrongList"></div></section>
+<section id="about" class="panel"><h2 class="section-title">考试说明</h2><div class="grid" id="aboutGrid"></div></section>
+</main><footer class="footer">Powered by OpenClaw · 可继续扩展更多考试类别、章节题库与真题套卷</footer>
 <script>
-  // Set date
-  const now = new Date();
-  const weekdays = ['日','一','二','三','四','五','六'];
-  const dateStr = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 星期${weekdays[now.getDay()]}`;
-  document.getElementById('dateDisplay').textContent = '📅 ' + dateStr;
-
-  // Update time
-  document.getElementById('updateTime').textContent = '更新于 ' + now.toLocaleTimeString('zh-CN', {hour:'2-digit', minute:'2-digit'});
-
-  // Tab filtering
-  const tabs = document.querySelectorAll('.tab');
-  const cards = document.querySelectorAll('.news-card');
-  const empty = document.getElementById('emptyState');
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      const filter = tab.dataset.filter;
-      let visible = 0;
-      cards.forEach(card => {
-        if (filter === 'all') {
-          card.style.display = 'block';
-          visible++;
-        } else {
-          const show = card.dataset.tag === filter;
-          card.style.display = show ? 'block' : 'none';
-          if (show) visible++;
-        }
-      });
-      empty.style.display = visible === 0 ? 'block' : 'none';
-    });
-  });
+(function(){
+var subjects={}, questions=[], currentLevel='全部';
+var currentSubject='ai_trainer_level3', currentType='全部', examTimer=null, remain=0;
+var letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+var subjectQuestionCache={};
+var loadingSubject=null;
+function $(id){return document.getElementById(id)}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function loadBank(){
+  var xhr=new XMLHttpRequest();
+  xhr.open('GET','data/subjects.json?v='+Date.now(),true);
+  xhr.onreadystatechange=function(){
+    if(xhr.readyState!==4)return;
+    if(xhr.status>=200&&xhr.status<300){
+      try{var bank=JSON.parse(xhr.responseText); subjects=bank.subjects||{}; questions=[]; init(); loadSubjectQuestions(currentSubject,function(){renderHome();renderPracticeFilters();renderPractice();renderExamSetup();renderWrong();});}
+      catch(e){showLoadError(e.message)}
+    }else showLoadError('HTTP '+xhr.status);
+  };
+  xhr.onerror=function(){showLoadError('网络错误')};
+  xhr.send();
+}
+function loadSubjectQuestions(sub,cb){
+  if(subjectQuestionCache[sub]){questions=subjectQuestionCache[sub]; if(cb)cb(); return;}
+  loadingSubject=sub;
+  var pl=$('practiceList'); if(pl)pl.innerHTML='<div class="card">题库加载中，请稍候...</div>';
+  var xhr=new XMLHttpRequest();
+  xhr.open('GET','data/questions/'+sub+'.json?v='+Date.now(),true);
+  xhr.onreadystatechange=function(){
+    if(xhr.readyState!==4)return;
+    if(xhr.status>=200&&xhr.status<300){
+      try{var data=JSON.parse(xhr.responseText); subjectQuestionCache[sub]=(data.questions||[]).filter(function(q){return q.review_status==='approved'}); questions=subjectQuestionCache[sub]; loadingSubject=null; if(cb)cb();}
+      catch(e){showLoadError(e.message)}
+    }else{loadingSubject=null; if(pl)pl.innerHTML='<div class="card">该科目题库加载失败，请刷新重试。</div>';}
+  };
+  xhr.onerror=function(){loadingSubject=null; if(pl)pl.innerHTML='<div class="card">题库网络加载失败，请刷新重试。</div>';};
+  xhr.send();
+}
+function getCount(k){var s=subjects[k]||{}; if(subjectQuestionCache[k])return subjectQuestionCache[k].length; return s.question_count||0;}
+function showLoadError(msg){var w=document.querySelector('.wrap'); if(w)w.innerHTML='<div class="notice">题库索引加载失败，请检查 data/subjects.json。错误：'+esc(msg)+'</div>'}
+function init(){renderLevelFilters();renderHome();renderPracticeFilters();renderPractice();renderExamSetup();renderAbout();renderWrong();bindNav();}
+function bindNav(){var tabs=document.querySelectorAll('.tab');for(var i=0;i<tabs.length;i++){tabs[i].onclick=function(){for(var j=0;j<tabs.length;j++)tabs[j].classList.remove('active');this.classList.add('active');var panels=document.querySelectorAll('.panel');for(var k=0;k<panels.length;k++)panels[k].classList.remove('active');$(this.getAttribute('data-page')).classList.add('active');if(this.getAttribute('data-page')==='wrong')renderWrong();};}}
+window.goto=function(page,sub){if(sub)currentSubject=sub;var tab=document.querySelector('.tab[data-page="'+page+'"]');if(tab)tab.click();if(page==='practice'){renderPracticeFilters();loadSubjectQuestions(currentSubject,function(){renderPracticeFilters();renderPractice();renderWrong();});}if(page==='exam'){loadSubjectQuestions(currentSubject,function(){renderExamSetup(currentSubject);});}}
+function qSubject(q){if(q.subject_key)return q.subject_key;for(var k in subjects){if(subjects[k].name===q.subject)return k}return q.s}
+function qType(q){return q.type||'简答'}
+function entries(obj){var arr=[];for(var k in obj)if(Object.prototype.hasOwnProperty.call(obj,k))arr.push([k,obj[k]]);return arr}
+function unique(arr){var out=[];for(var i=0;i<arr.length;i++)if(out.indexOf(arr[i])<0)out.push(arr[i]);return out}
+function renderLevelFilters(){var box=$('levelFilters');if(!box)return;var lv=['全部'];var es=entries(subjects);for(var i=0;i<es.length;i++){var l=es[i][1].level||'其他';if(lv.indexOf(l)<0)lv.push(l)}var html='';for(i=0;i<lv.length;i++){var l2=lv[i];html+='<button class="filter '+(l2===currentLevel?'active':'')+'" data-level="'+esc(l2)+'">'+esc(l2)+'</button>'}box.innerHTML=html;var bs=box.querySelectorAll('button');for(i=0;i<bs.length;i++){bs[i].onclick=function(){currentLevel=this.getAttribute('data-level');renderLevelFilters();renderHome();};}}
+function bindSubjectActions(){var grid=$('subjectGrid');if(!grid)return;var links=grid.querySelectorAll('[data-page][data-sub]');for(var i=0;i<links.length;i++){links[i].onclick=function(e){if(e&&e.preventDefault)e.preventDefault();window.goto(this.getAttribute('data-page'),this.getAttribute('data-sub'));return false;};}}
+function renderHome(){var html='', es=entries(subjects);for(var i=0;i<es.length;i++){var k=es[i][0],s=es[i][1];if(currentLevel!=='全部'&&s.level!==currentLevel)continue;var total=getCount(k);var pills='';var ex=s.exam||[];for(j=0;j<ex.length;j++)pills+='<span class="pill">'+esc(ex[j].name)+' '+esc(ex[j].score)+'分</span>';html+='<div class="card subject-card"><h2>'+esc(s.name)+'</h2><div class="meta">'+esc(s.level)+'｜已审核题目 '+total+' 道</div><p>'+esc(s.desc)+'</p><div class="pillrow">'+pills+'</div><div class="actions"><a class="btn" href="#practice" data-page="practice" data-sub="'+esc(k)+'">开始练习</a><a class="btn ghost" href="#exam" data-page="exam" data-sub="'+esc(k)+'">模拟考试</a></div></div>'} $('subjectGrid').innerHTML=html||'<div class="card">暂无该级别科目。</div>';bindSubjectActions();}
+function renderPracticeFilters(){var html='',es=entries(subjects);for(var i=0;i<es.length;i++){var k=es[i][0],s=es[i][1];html+='<button class="filter '+(k===currentSubject?'active':'')+'" data-sub="'+esc(k)+'">'+esc(s.short||s.name)+'</button>'}$('practiceSubjects').innerHTML=html;var bs=$('practiceSubjects').querySelectorAll('button');for(i=0;i<bs.length;i++)bs[i].onclick=function(){currentSubject=this.getAttribute('data-sub');currentType='全部';renderPracticeFilters();renderPractice();};var types=['全部'];if(subjectQuestionCache[currentSubject]){for(i=0;i<questions.length;i++)if(qSubject(questions[i])===currentSubject&&types.indexOf(qType(questions[i]))<0)types.push(qType(questions[i]));}else{var tc=(subjects[currentSubject]||{}).type_counts||{};for(var tk in tc)if(types.indexOf(tk)<0)types.push(tk);}html='';for(i=0;i<types.length;i++)html+='<button class="filter '+(types[i]===currentType?'active':'')+'" data-type="'+esc(types[i])+'">'+esc(types[i])+'</button>';$('practiceTypes').innerHTML=html;bs=$('practiceTypes').querySelectorAll('button');for(i=0;i<bs.length;i++)bs[i].onclick=function(){currentType=this.getAttribute('data-type');renderPracticeFilters();renderPractice();};}
+function renderPractice(){if(!subjectQuestionCache[currentSubject]){loadSubjectQuestions(currentSubject,function(){renderPracticeFilters();renderPractice();});return;}var qs=[];for(var i=0;i<questions.length;i++){var q=questions[i];if(qSubject(q)===currentSubject&&(currentType==='全部'||qType(q)===currentType))qs.push(q)}var html='';for(i=0;i<qs.length;i++)html+=renderQuestion(qs[i],i,false);$('practiceList').innerHTML=html||'<div class="card">暂无已审核题目。</div>';}
+function renderQuestion(q,i,exam){var type=qType(q),input=type==='多选'?'checkbox':'radio',opts=q.options||[],options='';if(opts.length){for(var idx=0;idx<opts.length;idx++)options+='<label class="option"><input type="'+input+'" name="'+(exam?'e':'p')+'_'+esc(q.id)+'" value="'+letters[idx]+'"> '+letters[idx]+'. '+esc(opts[idx])+'</label>'}else options='<textarea id="txt_'+esc(q.id)+'" rows="4" placeholder="请输入作答要点"></textarea>';var src=q.source_name?'<div class="muted" style="margin-top:8px">来源：'+(q.source_url?'<a href="'+esc(q.source_url)+'" target="_blank">'+esc(q.source_name)+'</a>':esc(q.source_name))+'｜'+esc(q.chapter||'未分类')+'｜'+esc(q.official_exam_part||'未标注')+'</div>':'';return '<div class="question" data-q="'+esc(q.id)+'"><div class="q-head"><div class="q-title">'+(i+1)+'. '+esc(q.stem)+'</div><span class="q-tag">'+esc(type)+'</span></div><div class="options">'+options+'</div>'+src+(exam?'':'<div class="actions"><button class="btn secondary" onclick="showAnswer(\''+esc(q.id)+'\')">查看答案</button></div><div class="answer" id="ans_'+esc(q.id)+'"><b>参考答案：</b>'+esc(Array.isArray(q.answer)?q.answer.join('、'):q.answer)+'<br><b>解析：</b>'+esc(q.explanation||'暂无解析')+'</div>')+'</div>'}
+window.showAnswer=function(id){var q=findQ(id),box=$('ans_'+id),card=document.querySelector('[data-q="'+id+'"]');if(box)box.classList.add('show');if(card&&q)gradeCard(card,q,true)}
+function findQ(id){for(var sk in subjectQuestionCache){var arr=subjectQuestionCache[sk];for(var i=0;i<arr.length;i++)if(arr[i].id===id)return arr[i]}for(var j=0;j<questions.length;j++)if(questions[j].id===id)return questions[j]}
+function norm(ans){return Array.isArray(ans)?ans.slice().sort().join(','):String(ans||'')}
+function gradeCard(card,q,saveWrong){var checked=card.querySelectorAll('input:checked'),vals=[];for(var i=0;i<checked.length;i++)vals.push(checked[i].value);var ok=(q.options||[]).length?(Array.isArray(q.answer)?norm(q.answer)===vals.sort().join(','):vals[0]===q.answer):true;var labs=card.querySelectorAll('.option');for(i=0;i<labs.length;i++){var v=letters[i],correct=Array.isArray(q.answer)?q.answer.indexOf(v)>=0:q.answer===v;if(correct)labs[i].classList.add('correct');else if(vals.indexOf(v)>=0)labs[i].classList.add('wrong')}if(saveWrong&&!ok)addWrong(q.id);return ok}
+function renderExamSetup(sub){if(sub)currentSubject=sub;var html='',es=entries(subjects);for(var i=0;i<es.length;i++){var k=es[i][0],s=es[i][1];html+='<option value="'+esc(k)+'" '+(k===currentSubject?'selected':'')+'>'+esc(s.name)+'</option>'}$('examSubject').innerHTML=html;setPapers();$('examSubject').onchange=function(){currentSubject=this.value;setPapers()};$('startExamBtn').onclick=startExam;$('submitExamBtn').onclick=submitExam;$('cancelExamBtn').onclick=cancelExam;}
+function setPapers(){var k=$('examSubject').value||currentSubject,s=subjects[k]||{},ex=s.exam||[],html='';for(var i=0;i<ex.length;i++)html+='<option value="'+i+'">'+esc(ex[i].name)+'｜'+esc(ex[i].time)+'分钟｜'+esc(ex[i].score)+'分</option>';$('examPaper').innerHTML=html;}
+function startExam(){var sub=$('examSubject').value,paper=(subjects[sub].exam||[])[Number($('examPaper').value)]||{name:'模拟考试',time:30,types:'题库抽题'};currentSubject=sub;var qs=[];for(var i=0;i<questions.length;i++){var q=questions[i];if(qSubject(q)!==sub)continue;var qt=qType(q);if((paper.name==='理论知识'||paper.name==='基础知识'||paper.name==='综合知识')?qt!=='案例':qt==='案例'||qt==='简答'||q.official_exam_part===paper.name)qs.push(q)}if(!qs.length){for(i=0;i<questions.length;i++)if(qSubject(questions[i])===sub)qs.push(questions[i])}qs=qs.slice(0,30);$('examSetup').style.display='none';$('examArea').style.display='block';$('examResult').innerHTML='';$('submitExamBtn').disabled=false;var html='<div class="notice">当前从已审核题库中抽取 '+qs.length+' 道题。正式套卷可继续扩容到官方结构：'+esc(paper.types||'')+'。</div>';for(i=0;i<qs.length;i++)html+=renderQuestion(qs[i],i,true);$('examQuestions').innerHTML=html;remain=Math.min((paper.time||30)*60,30*60);tick();clearInterval(examTimer);examTimer=setInterval(tick,1000);}
+function tick(){var m=String(Math.floor(remain/60));if(m.length<2)m='0'+m;var s=String(remain%60);if(s.length<2)s='0'+s;$('timer').textContent=m+':'+s;$('examProgress').style.width=(100-Math.max(remain,0)/(30*60)*100)+'%';if(remain--<=0)submitExam();}
+function submitExam(){clearInterval(examTimer);var cards=$('examQuestions').querySelectorAll('.question'),right=0;for(var i=0;i<cards.length;i++){var q=findQ(cards[i].getAttribute('data-q'));if(q&&gradeCard(cards[i],q,true))right++;if(q){var ans=document.createElement('div');ans.className='answer show';ans.innerHTML='<b>参考答案：</b>'+esc(Array.isArray(q.answer)?q.answer.join('、'):q.answer)+'<br><b>解析：</b>'+esc(q.explanation||'暂无解析');cards[i].appendChild(ans)}}$('examResult').innerHTML='<div class="result"><b>本次得分：'+right+'/'+cards.length+'</b><p class="muted">客观题按答案自动判分；案例/简答题展示参考要点，建议人工对照评分。</p></div>';$('submitExamBtn').disabled=true;$('timer').textContent='已交卷';}
+function cancelExam(){clearInterval(examTimer);$('examSetup').style.display='block';$('examArea').style.display='none';$('examResult').innerHTML='';$('timer').textContent='未开始';$('submitExamBtn').disabled=false;}
+function addWrong(id){var arr=[];try{arr=JSON.parse(localStorage.getItem('wrongQuestions')||'[]')}catch(e){}if(arr.indexOf(id)<0){arr.push(id);localStorage.setItem('wrongQuestions',JSON.stringify(arr));}}
+function renderWrong(){var arr=[];try{arr=JSON.parse(localStorage.getItem('wrongQuestions')||'[]')}catch(e){}var html='',idx=0;for(var i=0;i<arr.length;i++){var q=findQ(arr[i]);if(q)html+=renderQuestion(q,idx++,false)}$('wrongList').innerHTML=html||'<div class="card">暂无错题。练习或模拟考试答错后会自动收录。</div>';}
+function renderAbout(){var html='',es=entries(subjects);for(var i=0;i<es.length;i++){var s=es[i][1],ex=s.exam||[],ebox='';for(var j=0;j<ex.length;j++)ebox+='<div class="info-box"><b>'+esc(ex[j].name)+'</b><p>'+esc(ex[j].time)+'分钟｜满分'+esc(ex[j].score)+'｜合格'+esc(ex[j].pass)+'</p><p class="muted">'+esc(ex[j].types)+'</p></div>';html+='<div class="card"><h2>'+esc(s.name)+'</h2><div class="meta">'+esc(s.level)+'</div><div class="exam-info">'+ebox+'</div></div>'}$('aboutGrid').innerHTML=html;}
+setTimeout(bindSubjectActions,300);
+loadBank();
+})();
 </script>
 </body>
 </html>
