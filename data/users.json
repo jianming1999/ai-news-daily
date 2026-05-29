@@ -1,0 +1,15 @@
+{
+  "users": [
+    {
+      "id": "admin",
+      "username": "admin",
+      "password_salt": "de0efeb23d61fc4dfb60a9cb1fc432ad",
+      "password_hash": "c7d445499442c3d2047750475c488b6ba4a3306c5cd502f2829cf39edbf2b366",
+      "role": "admin",
+      "status": "active",
+      "created_at": "2026-05-29T17:21:00+08:00",
+      "updated_at": "2026-05-29T17:21:00+08:00",
+      "last_login_at": "2026-05-29T09:26:48.883Z"
+    }
+  ]
+}

@@ -8,7 +8,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT || 3001);
 const DATA_DIR = path.join(__dirname, 'data');
 const QUESTIONS_DIR = path.join(DATA_DIR, 'questions');
-const ADMIN_TOKEN = process.env.ADMIN_TOKEN || '';
+const USERS_FILE = path.join(DATA_DIR, 'users.json');
+const SESSION_TTL_MS = 1000 * 60 * 60 * 8;
+const sessions = new Map();
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -25,7 +27,7 @@ function send(res, status, body, headers = {}) {
   res.writeHead(status, { 'cache-control': 'no-store', ...headers });
   res.end(body);
 }
-function json(res, status, data) { send(res, status, JSON.stringify(data), { 'content-type': 'application/json; charset=utf-8' }); }
+function json(res, status, data, headers = {}) { send(res, status, JSON.stringify(data), { 'content-type': 'application/json; charset=utf-8', ...headers }); }
 function fail(res, status, message) { json(res, status, { ok: false, error: message }); }
 async function readJson(file) { return JSON.parse(await fs.readFile(file, 'utf8')); }
 async function writeJsonAtomic(file, data) {
@@ -45,9 +47,40 @@ function safeKey(key) {
   return key;
 }
 function questionFile(subjectKey) { return path.join(QUESTIONS_DIR, `${safeKey(subjectKey)}.json`); }
-function isAuthed(req) {
-  if (!ADMIN_TOKEN) return true;
-  return req.headers.authorization === `Bearer ${ADMIN_TOKEN}` || new URL(req.url, 'http://x').searchParams.get('token') === ADMIN_TOKEN;
+function hashPassword(password, salt = crypto.randomBytes(16).toString('hex')) {
+  return { salt, hash: crypto.createHash('sha256').update(salt + password).digest('hex') };
+}
+function publicUser(user) {
+  return { id: user.id, username: user.username, role: user.role || 'editor', status: user.status || 'active', created_at: user.created_at, updated_at: user.updated_at, last_login_at: user.last_login_at || '' };
+}
+function parseCookies(req) {
+  const out = {};
+  for (const part of String(req.headers.cookie || '').split(';')) {
+    const idx = part.indexOf('=');
+    if (idx > -1) out[part.slice(0, idx).trim()] = decodeURIComponent(part.slice(idx + 1));
+  }
+  return out;
+}
+async function findSessionUser(req) {
+  const sid = parseCookies(req).exam_admin_sid;
+  if (!sid) return null;
+  const session = sessions.get(sid);
+  if (!session || session.expiresAt < Date.now()) { sessions.delete(sid); return null; }
+  session.expiresAt = Date.now() + SESSION_TTL_MS;
+  const db = await readJson(USERS_FILE).catch(() => ({ users: [] }));
+  const user = (db.users || []).find(u => u.id === session.userId && u.status !== 'disabled');
+  return user || null;
+}
+async function requireAuth(req, res) {
+  const user = await findSessionUser(req);
+  if (!user) { fail(res, 401, '请先登录'); return null; }
+  return user;
+}
+async function requireAdmin(req, res) {
+  const user = await requireAuth(req, res);
+  if (!user) return null;
+  if (user.role !== 'admin') { fail(res, 403, '需要管理员权限'); return null; }
+  return user;
 }
 function normalizeQuestion(q, subjectKey) {
   const now = new Date().toISOString();
@@ -97,13 +130,96 @@ async function backupData() {
   await fs.cp(DATA_DIR, dir, { recursive: true });
   return dir;
 }
+async function handleAuth(req, res, url) {
+  if (url.pathname === '/api/auth/login' && req.method === 'POST') {
+    const body = await readBody(req);
+    const db = await readJson(USERS_FILE).catch(() => ({ users: [] }));
+    const user = (db.users || []).find(u => u.username === String(body.username || '').trim() && u.status !== 'disabled');
+    if (!user) return fail(res, 401, '账号或密码错误');
+    const hashed = hashPassword(String(body.password || ''), user.password_salt);
+    if (hashed.hash !== user.password_hash) return fail(res, 401, '账号或密码错误');
+    user.last_login_at = new Date().toISOString();
+    await writeJsonAtomic(USERS_FILE, db);
+    const sid = crypto.randomBytes(32).toString('hex');
+    sessions.set(sid, { userId: user.id, expiresAt: Date.now() + SESSION_TTL_MS });
+    return json(res, 200, { ok: true, user: publicUser(user) }, { 'set-cookie': `exam_admin_sid=${sid}; HttpOnly; SameSite=Lax; Path=/; Max-Age=${SESSION_TTL_MS / 1000}` });
+  }
+  if (url.pathname === '/api/auth/logout' && req.method === 'POST') {
+    const sid = parseCookies(req).exam_admin_sid;
+    if (sid) sessions.delete(sid);
+    return json(res, 200, { ok: true }, { 'set-cookie': 'exam_admin_sid=; HttpOnly; SameSite=Lax; Path=/; Max-Age=0' });
+  }
+  if (url.pathname === '/api/auth/me' && req.method === 'GET') {
+    const user = await findSessionUser(req);
+    return json(res, 200, { ok: true, user: user ? publicUser(user) : null });
+  }
+  return false;
+}
+async function handleUsers(req, res, url) {
+  if (url.pathname === '/api/admin/users' && req.method === 'GET') {
+    if (!await requireAdmin(req, res)) return true;
+    const db = await readJson(USERS_FILE).catch(() => ({ users: [] }));
+    return json(res, 200, { ok: true, users: (db.users || []).map(publicUser) });
+  }
+  if (url.pathname === '/api/admin/users' && req.method === 'POST') {
+    if (!await requireAdmin(req, res)) return true;
+    const body = await readBody(req);
+    const username = String(body.username || '').trim();
+    const password = String(body.password || '').trim();
+    if (!/^[a-zA-Z0-9_-]{3,32}$/.test(username)) return fail(res, 400, '用户名需为3-32位字母数字下划线或横线');
+    if (password.length < 8) return fail(res, 400, '密码至少8位');
+    const db = await readJson(USERS_FILE).catch(() => ({ users: [] }));
+    if ((db.users || []).some(u => u.username === username)) return fail(res, 409, '用户名已存在');
+    const hp = hashPassword(password);
+    const now = new Date().toISOString();
+    const user = { id: crypto.randomUUID(), username, password_salt: hp.salt, password_hash: hp.hash, role: body.role === 'admin' ? 'admin' : 'editor', status: body.status === 'disabled' ? 'disabled' : 'active', created_at: now, updated_at: now };
+    db.users = db.users || [];
+    db.users.push(user);
+    await writeJsonAtomic(USERS_FILE, db);
+    return json(res, 200, { ok: true, user: publicUser(user) });
+  }
+  const match = url.pathname.match(/^\/api\/admin\/users\/([^/]+)$/);
+  if (match && req.method === 'PUT') {
+    const actor = await requireAdmin(req, res); if (!actor) return true;
+    const body = await readBody(req);
+    const db = await readJson(USERS_FILE).catch(() => ({ users: [] }));
+    const user = (db.users || []).find(u => u.id === decodeURIComponent(match[1]));
+    if (!user) return fail(res, 404, '用户不存在');
+    if (body.role) user.role = body.role === 'admin' ? 'admin' : 'editor';
+    if (body.status) user.status = body.status === 'disabled' ? 'disabled' : 'active';
+    if (body.password) {
+      if (String(body.password).length < 8) return fail(res, 400, '密码至少8位');
+      const hp = hashPassword(String(body.password));
+      user.password_salt = hp.salt; user.password_hash = hp.hash;
+    }
+    user.updated_at = new Date().toISOString();
+    await writeJsonAtomic(USERS_FILE, db);
+    return json(res, 200, { ok: true, user: publicUser(user) });
+  }
+  if (match && req.method === 'DELETE') {
+    const actor = await requireAdmin(req, res); if (!actor) return true;
+    const db = await readJson(USERS_FILE).catch(() => ({ users: [] }));
+    const id = decodeURIComponent(match[1]);
+    if (actor.id === id) return fail(res, 400, '不能删除当前登录用户');
+    const before = db.users.length;
+    db.users = (db.users || []).filter(u => u.id !== id);
+    if (db.users.length === before) return fail(res, 404, '用户不存在');
+    await writeJsonAtomic(USERS_FILE, db);
+    return json(res, 200, { ok: true });
+  }
+  return false;
+}
 async function handleApi(req, res) {
   const url = new URL(req.url, `http://${req.headers.host}`);
-  if (url.pathname === '/api/health') return json(res, 200, { ok: true, time: new Date().toISOString(), auth: !!ADMIN_TOKEN });
+  const authHandled = await handleAuth(req, res, url);
+  if (authHandled !== false) return;
+  const userHandled = await handleUsers(req, res, url);
+  if (userHandled !== false) return;
+  if (url.pathname === '/api/health') return json(res, 200, { ok: true, time: new Date().toISOString(), auth: true });
   if (url.pathname === '/api/subjects' && req.method === 'GET') return json(res, 200, await readJson(path.join(DATA_DIR, 'subjects.json')));
 
   if (url.pathname === '/api/admin/backup' && req.method === 'POST') {
-    if (!isAuthed(req)) return fail(res, 401, '未授权');
+    if (!await requireAuth(req, res)) return;
     const dir = await backupData();
     return json(res, 200, { ok: true, backup: dir });
   }
@@ -128,7 +244,7 @@ async function handleApi(req, res) {
 
   const questionMatch = url.pathname.match(/^\/api\/subjects\/([^/]+)\/questions\/?([^/]*)$/);
   if (questionMatch && ['POST', 'PUT', 'DELETE'].includes(req.method)) {
-    if (!isAuthed(req)) return fail(res, 401, '未授权');
+    if (!await requireAuth(req, res)) return;
     const subjectKey = safeKey(questionMatch[1]);
     const qid = decodeURIComponent(questionMatch[2] || '');
     const file = questionFile(subjectKey);
