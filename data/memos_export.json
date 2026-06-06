@@ -1,13 +1,24 @@
 {
-  "exported_at": "2026-06-06T13:41:51.096952+00:00",
+  "exported_at": "2026-06-06T13:46:59.429649+00:00",
   "source": "memos",
   "version": "0.29.1",
   "database": "/root/.openclaw/workspace/data/memos/memos_prod.db",
   "counts": {
-    "users": 0,
-    "memos": 0
+    "users": 1,
+    "memos": 1
   },
-  "users": [],
+  "users": [
+    {
+      "id": 1,
+      "username": "jm2000",
+      "nickname": "",
+      "role": "ADMIN",
+      "email": "",
+      "created_ts": 1780753473,
+      "updated_ts": 1780753473,
+      "row_status": "NORMAL"
+    }
+  ],
   "system_settings": [
     {
       "name": "BASIC",
@@ -15,5 +26,31 @@
       "description": ""
     }
   ],
-  "memos": []
+  "memos": [
+    {
+      "id": 1,
+      "uid": "NUDouXXj6AG2JhZBLrLrKD",
+      "creator_id": 1,
+      "created_ts": 1780753590,
+      "updated_ts": 1780753591,
+      "row_status": "NORMAL",
+      "content": "测试一下",
+      "visibility": "PRIVATE",
+      "pinned": 0,
+      "payload": {
+        "property": {}
+      },
+      "creator": {
+        "id": 1,
+        "username": "jm2000",
+        "nickname": "",
+        "role": "ADMIN",
+        "email": "",
+        "created_ts": 1780753473,
+        "updated_ts": 1780753473,
+        "row_status": "NORMAL"
+      },
+      "attachments": []
+    }
+  ]
 }
