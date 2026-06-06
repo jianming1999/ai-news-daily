@@ -1,11 +1,11 @@
 {
-  "exported_at": "2026-06-06T13:48:06.402321+00:00",
+  "exported_at": "2026-06-06T13:48:43.396670+00:00",
   "source": "memos",
   "version": "0.29.1",
   "database": "/root/.openclaw/workspace/data/memos/memos_prod.db",
   "counts": {
     "users": 1,
-    "memos": 2
+    "memos": 4
   },
   "users": [
     {
@@ -27,6 +27,61 @@
     }
   ],
   "memos": [
+    {
+      "id": 4,
+      "uid": "CPjjn8NG5vqSwNCfWFyhPA",
+      "creator_id": 1,
+      "created_ts": 1780753713,
+      "updated_ts": 1780753713,
+      "row_status": "NORMAL",
+      "content": "numpy API\n\nnp.where(condition, A, B)\n满足条件时返回A，否则返回B（相当于向量化 if-else）\n\n# 将分类变量转为数值变量\npd.get_dummies(X)\nhttps://blog.csdn.net/maymay_/article/details/80198468\n```python\nimport pandas as pd\ndf = pd.Dataframe([\n\t['green, 'A'],\n\t['red', 'B'],\n\t['blue', 'A']\n])\n\ndf.columns = ['color', 'class']\nprint(pd.get_dummies(df))\n\n#numpy",
+      "visibility": "PRIVATE",
+      "pinned": 0,
+      "payload": {
+        "property": {
+          "hasCode": true
+        }
+      },
+      "creator": {
+        "id": 1,
+        "username": "jm2000",
+        "nickname": "",
+        "role": "ADMIN",
+        "email": "",
+        "created_ts": 1780753473,
+        "updated_ts": 1780753473,
+        "row_status": "NORMAL"
+      },
+      "attachments": []
+    },
+    {
+      "id": 3,
+      "uid": "2X65V2YqHhFYverCMUCLvn",
+      "creator_id": 1,
+      "created_ts": 1780753693,
+      "updated_ts": 1780753693,
+      "row_status": "NORMAL",
+      "content": "matplotlib / plt API\n\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n#matplotlib",
+      "visibility": "PRIVATE",
+      "pinned": 0,
+      "payload": {
+        "property": {},
+        "tags": [
+          "matplotlib"
+        ]
+      },
+      "creator": {
+        "id": 1,
+        "username": "jm2000",
+        "nickname": "",
+        "role": "ADMIN",
+        "email": "",
+        "created_ts": 1780753473,
+        "updated_ts": 1780753473,
+        "row_status": "NORMAL"
+      },
+      "attachments": []
+    },
     {
       "id": 2,
       "uid": "oGArKPxheGN6vnnoZMmVnv",
