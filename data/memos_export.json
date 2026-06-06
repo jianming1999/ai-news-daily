@@ -1,5 +1,5 @@
 {
-  "exported_at": "2026-06-06T13:48:43.396670+00:00",
+  "exported_at": "2026-06-06T13:49:20.784500+00:00",
   "source": "memos",
   "version": "0.29.1",
   "database": "/root/.openclaw/workspace/data/memos/memos_prod.db",
@@ -32,15 +32,18 @@
       "uid": "CPjjn8NG5vqSwNCfWFyhPA",
       "creator_id": 1,
       "created_ts": 1780753713,
-      "updated_ts": 1780753713,
+      "updated_ts": 1780753757,
       "row_status": "NORMAL",
-      "content": "numpy API\n\nnp.where(condition, A, B)\n满足条件时返回A，否则返回B（相当于向量化 if-else）\n\n# 将分类变量转为数值变量\npd.get_dummies(X)\nhttps://blog.csdn.net/maymay_/article/details/80198468\n```python\nimport pandas as pd\ndf = pd.Dataframe([\n\t['green, 'A'],\n\t['red', 'B'],\n\t['blue', 'A']\n])\n\ndf.columns = ['color', 'class']\nprint(pd.get_dummies(df))\n\n#numpy",
+      "content": "numpy API\n\nnp.where(condition, A, B)\n满足条件时返回A，否则返回B（相当于向量化 if-else）\n\n# 将分类变量转为数值变量\npd.get_dummies(X)\nhttps://blog.csdn.net/maymay_/article/details/80198468\n```python\nimport pandas as pd\ndf = pd.Dataframe([\n\t['green, 'A'],\n\t['red', 'B'],\n\t['blue', 'A']\n])\n\ndf.columns = ['color', 'class']\nprint(pd.get_dummies(df))\n```\n\n#numpy",
       "visibility": "PRIVATE",
       "pinned": 0,
       "payload": {
         "property": {
           "hasCode": true
-        }
+        },
+        "tags": [
+          "numpy"
+        ]
       },
       "creator": {
         "id": 1,
