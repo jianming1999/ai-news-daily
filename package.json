@@ -7,5 +7,7 @@
     "start": "node server.js",
     "check": "node --check server.js"
   },
-  "dependencies": {}
+  "dependencies": {
+    "mysql2": "^3.22.4"
+  }
 }

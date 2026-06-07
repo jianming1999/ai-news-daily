@@ -1,0 +1,7 @@
+node_modules/
+.admin_credentials.txt
+data/exam_bank.sqlite
+archive/
+question_bank.before_*.json
+question_bank.github_*.json
+*.log

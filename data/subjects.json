@@ -1,1 +1,592 @@
-{"mode":"formal_exam_prep","publish_policy":"网站展示 review_status=approved 的题目；本次已按用户要求将 MIT 来源的人工智能训练师三级题库直接上线，后续建议继续抽样校对。","subjects":{"ai_trainer_level3":{"name":"人工智能训练师三级","short":"AI训练师三级","level":"职业技能等级：三级/高级工","desc":"面向数据标注、模型训练辅助、智能系统测试与应用落地。","exam":[{"name":"理论知识","time":90,"score":100,"pass":60,"types":"单选、多选、判断等客观题为主"},{"name":"技能考核","time":120,"score":100,"pass":60,"types":"案例分析、简答、实操任务等"}],"question_count":942,"type_counts":{"单选":301,"判断":301,"多选":300,"案例":40}},"network_engineer":{"name":"网络工程师","short":"网络工程师","level":"软考中级","desc":"覆盖网络基础、路由交换、网络安全、系统规划与配置。","exam":[{"name":"基础知识","time":150,"score":75,"pass":45,"types":"75道客观选择题"},{"name":"应用技术","time":150,"score":75,"pass":45,"types":"案例分析/问答题，通常约5道大题"}],"question_count":11,"type_counts":{"单选":5,"判断":3,"多选":2,"案例":1}},"ecommerce_designer":{"name":"电子商务设计师","short":"电商设计师","level":"软考中级","desc":"覆盖电子商务基础、系统分析设计、网络营销、支付安全与项目实施。","exam":[{"name":"基础知识","time":150,"score":75,"pass":45,"types":"客观选择题"},{"name":"应用技术","time":150,"score":75,"pass":45,"types":"案例分析/问答题"}],"question_count":13,"type_counts":{"单选":5,"案例":4,"判断":2,"多选":2}},"software_designer":{"name":"软件设计师","short":"软件设计师","level":"软考中级","desc":"覆盖软件工程、数据库、数据结构、面向对象、系统设计与程序设计。","exam":[{"name":"基础知识","time":150,"score":75,"pass":45,"types":"客观选择题，覆盖基础概念、法规标准、技术方法"},{"name":"应用技术","time":150,"score":75,"pass":45,"types":"案例分析/问答题，考查方案设计、故障分析和综合应用"}],"question_count":11,"type_counts":{"单选":4,"案例":3,"判断":2,"多选":2}},"system_integration_pm":{"name":"系统集成项目管理工程师","short":"系统集成","level":"软考中级","desc":"覆盖项目管理十大知识领域、系统集成实施、招投标、合同与信息化基础。","exam":[{"name":"基础知识","time":150,"score":75,"pass":45,"types":"客观选择题，覆盖基础概念、法规标准、技术方法"},{"name":"应用技术","time":150,"score":75,"pass":45,"types":"案例分析/问答题，考查方案设计、故障分析和综合应用"}],"question_count":11,"type_counts":{"单选":4,"案例":3,"判断":3,"多选":1}},"database_engineer":{"name":"数据库系统工程师","short":"数据库工程师","level":"软考中级","desc":"覆盖数据库原理、SQL、事务并发、数据库设计、性能优化与安全。","exam":[{"name":"基础知识","time":150,"score":75,"pass":45,"types":"客观选择题，覆盖基础概念、法规标准、技术方法"},{"name":"应用技术","time":150,"score":75,"pass":45,"types":"案例分析/问答题，考查方案设计、故障分析和综合应用"}],"question_count":11,"type_counts":{"单选":4,"案例":3,"多选":2,"判断":2}},"information_security_engineer":{"name":"信息安全工程师","short":"信息安全","level":"软考中级","desc":"覆盖密码学、网络安全、系统安全、应用安全、风险评估和安全管理。","exam":[{"name":"基础知识","time":150,"score":75,"pass":45,"types":"客观选择题，覆盖基础概念、法规标准、技术方法"},{"name":"应用技术","time":150,"score":75,"pass":45,"types":"案例分析/问答题，考查方案设计、故障分析和综合应用"}],"question_count":11,"type_counts":{"单选":4,"案例":3,"多选":2,"判断":2}},"software_evaluator":{"name":"软件评测师","short":"软件评测师","level":"软考中级","desc":"覆盖软件测试基础、测试设计、质量模型、自动化测试与测试管理。","exam":[{"name":"基础知识","time":150,"score":75,"pass":45,"types":"客观选择题，覆盖基础概念、法规标准、技术方法"},{"name":"应用技术","time":150,"score":75,"pass":45,"types":"案例分析/问答题，考查方案设计、故障分析和综合应用"}],"question_count":11,"type_counts":{"单选":4,"案例":3,"多选":2,"判断":2}},"embedded_system_designer":{"name":"嵌入式系统设计师","short":"嵌入式","level":"软考中级","desc":"覆盖嵌入式硬件、实时系统、接口通信、驱动、低功耗与系统设计。","exam":[{"name":"基础知识","time":150,"score":75,"pass":45,"types":"客观选择题，覆盖基础概念、法规标准、技术方法"},{"name":"应用技术","time":150,"score":75,"pass":45,"types":"案例分析/问答题，考查方案设计、故障分析和综合应用"}],"question_count":9,"type_counts":{"单选":3,"多选":2,"判断":2,"案例":2}},"multimedia_designer":{"name":"多媒体应用设计师","short":"多媒体","level":"软考中级","desc":"覆盖图形图像、音视频、动画、交互设计、多媒体系统开发与版权基础。","exam":[{"name":"基础知识","time":150,"score":75,"pass":45,"types":"客观选择题，覆盖基础概念、法规标准、技术方法"},{"name":"应用技术","time":150,"score":75,"pass":45,"types":"案例分析/问答题，考查方案设计、故障分析和综合应用"}],"question_count":9,"type_counts":{"单选":3,"多选":2,"判断":2,"案例":2}},"information_system_supervisor":{"name":"信息系统监理师","short":"系统监理","level":"软考中级","desc":"覆盖信息系统工程监理、质量进度投资控制、合同信息安全与验收。","exam":[{"name":"基础知识","time":150,"score":75,"pass":45,"types":"客观选择题，覆盖基础概念、法规标准、技术方法"},{"name":"应用技术","time":150,"score":75,"pass":45,"types":"案例分析/问答题，考查方案设计、故障分析和综合应用"}],"question_count":9,"type_counts":{"单选":3,"判断":2,"多选":2,"案例":2}},"network_planner":{"name":"网络规划设计师","short":"网络规划","level":"软考高级","desc":"覆盖大型网络规划、架构设计、网络安全、可靠性、项目论证与论文写作。","exam":[{"name":"综合知识","time":150,"score":75,"pass":45,"types":"客观选择题，覆盖综合基础、管理、技术和标准"},{"name":"案例分析","time":90,"score":75,"pass":45,"types":"案例分析题，考查方案分析、架构/管理/规划能力"},{"name":"论文","time":120,"score":75,"pass":45,"types":"论文写作，围绕项目实践、方法论和技术方案展开"}],"question_count":11,"type_counts":{"单选":4,"案例":3,"多选":2,"判断":2}},"system_architect":{"name":"系统架构设计师","short":"系统架构","level":"软考高级","desc":"覆盖软件架构、质量属性、架构评估、云原生、分布式系统和论文写作。","exam":[{"name":"综合知识","time":150,"score":75,"pass":45,"types":"客观选择题，覆盖综合基础、管理、技术和标准"},{"name":"案例分析","time":90,"score":75,"pass":45,"types":"案例分析题，考查方案分析、架构/管理/规划能力"},{"name":"论文","time":120,"score":75,"pass":45,"types":"论文写作，围绕项目实践、方法论和技术方案展开"}],"question_count":90,"type_counts":{"单选":78,"案例":9,"多选":1,"判断":2}},"system_analyst":{"name":"系统分析师","short":"系统分析","level":"软考高级","desc":"覆盖需求工程、业务建模、系统分析设计、项目方法论和论文写作。","exam":[{"name":"综合知识","time":150,"score":75,"pass":45,"types":"客观选择题，覆盖综合基础、管理、技术和标准"},{"name":"案例分析","time":90,"score":75,"pass":45,"types":"案例分析题，考查方案分析、架构/管理/规划能力"},{"name":"论文","time":120,"score":75,"pass":45,"types":"论文写作，围绕项目实践、方法论和技术方案展开"}],"question_count":9,"type_counts":{"单选":3,"多选":2,"判断":2,"案例":2}},"information_system_pm":{"name":"信息系统项目管理师","short":"高项","level":"软考高级","desc":"覆盖项目组合/项目集/项目管理、信息化战略、治理、案例分析和论文。","exam":[{"name":"综合知识","time":150,"score":75,"pass":45,"types":"客观选择题，覆盖综合基础、管理、技术和标准"},{"name":"案例分析","time":90,"score":75,"pass":45,"types":"案例分析题，考查方案分析、架构/管理/规划能力"},{"name":"论文","time":120,"score":75,"pass":45,"types":"论文写作，围绕项目实践、方法论和技术方案展开"}],"question_count":11,"type_counts":{"单选":4,"案例":4,"判断":2,"多选":1}},"system_planning_manager":{"name":"系统规划与管理师","short":"系统规划","level":"软考高级","desc":"覆盖信息系统规划、IT服务管理、组织治理、运维管理和论文写作。","exam":[{"name":"综合知识","time":150,"score":75,"pass":45,"types":"客观选择题，覆盖综合基础、管理、技术和标准"},{"name":"案例分析","time":90,"score":75,"pass":45,"types":"案例分析题，考查方案分析、架构/管理/规划能力"},{"name":"论文","time":120,"score":75,"pass":45,"types":"论文写作，围绕项目实践、方法论和技术方案展开"}],"question_count":9,"type_counts":{"单选":3,"判断":2,"多选":2,"案例":2}},"programmer":{"name":"程序员","short":"程序员","level":"软考初级","desc":"覆盖程序设计基础、数据结构、数据库、操作系统、网络和基本编码能力。","exam":[{"name":"基础知识","time":150,"score":75,"pass":45,"types":"客观选择题，覆盖岗位基础知识"},{"name":"应用技术","time":150,"score":75,"pass":45,"types":"应用操作/案例分析，考查实际处理能力"}],"question_count":11,"type_counts":{"单选":4,"案例":3,"判断":2,"多选":2}},"network_administrator":{"name":"网络管理员","short":"网络管理员","level":"软考初级","desc":"覆盖网络基础、局域网维护、网络设备配置、常见故障处理与安全基础。","exam":[{"name":"基础知识","time":150,"score":75,"pass":45,"types":"客观选择题，覆盖岗位基础知识"},{"name":"应用技术","time":150,"score":75,"pass":45,"types":"应用操作/案例分析，考查实际处理能力"}],"question_count":11,"type_counts":{"单选":4,"案例":3,"判断":2,"多选":2}},"information_processing_technician":{"name":"信息处理技术员","short":"信息处理","level":"软考初级","desc":"覆盖办公信息处理、数据库基础、网络基础、信息安全与应用操作。","exam":[{"name":"基础知识","time":150,"score":75,"pass":45,"types":"客观选择题，覆盖岗位基础知识"},{"name":"应用技术","time":150,"score":75,"pass":45,"types":"应用操作/案例分析，考查实际处理能力"}],"question_count":11,"type_counts":{"单选":4,"案例":3,"判断":2,"多选":2}}}}
+{
+  "mode": "formal_exam_prep",
+  "publish_policy": "网站展示 review_status=approved 的题目；本次已按用户要求将 MIT 来源的人工智能训练师三级题库直接上线，后续建议继续抽样校对。",
+  "subjects": {
+    "ai_trainer_level3": {
+      "name": "人工智能训练师三级",
+      "short": "AI训练师三级",
+      "level": "职业技能等级：三级/高级工",
+      "desc": "面向数据标注、模型训练辅助、智能系统测试与应用落地。",
+      "exam": [
+        {
+          "name": "理论知识",
+          "time": 90,
+          "score": 100,
+          "pass": 60,
+          "types": "单选、多选、判断等客观题为主"
+        },
+        {
+          "name": "技能考核",
+          "time": 120,
+          "score": 100,
+          "pass": 60,
+          "types": "案例分析、简答、实操任务等"
+        }
+      ],
+      "question_count": 1458,
+      "type_counts": {
+        "单选": 636,
+        "判断": 421,
+        "多选": 361,
+        "案例": 40
+      }
+    },
+    "network_engineer": {
+      "name": "网络工程师",
+      "short": "网络工程师",
+      "level": "软考中级",
+      "desc": "覆盖网络基础、路由交换、网络安全、系统规划与配置。",
+      "exam": [
+        {
+          "name": "基础知识",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "75道客观选择题"
+        },
+        {
+          "name": "应用技术",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "案例分析/问答题，通常约5道大题"
+        }
+      ],
+      "question_count": 11,
+      "type_counts": {
+        "单选": 5,
+        "判断": 3,
+        "多选": 2,
+        "案例": 1
+      }
+    },
+    "ecommerce_designer": {
+      "name": "电子商务设计师",
+      "short": "电商设计师",
+      "level": "软考中级",
+      "desc": "覆盖电子商务基础、系统分析设计、网络营销、支付安全与项目实施。",
+      "exam": [
+        {
+          "name": "基础知识",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "客观选择题"
+        },
+        {
+          "name": "应用技术",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "案例分析/问答题"
+        }
+      ],
+      "question_count": 13,
+      "type_counts": {
+        "单选": 5,
+        "案例": 4,
+        "判断": 2,
+        "多选": 2
+      }
+    },
+    "software_designer": {
+      "name": "软件设计师",
+      "short": "软件设计师",
+      "level": "软考中级",
+      "desc": "覆盖软件工程、数据库、数据结构、面向对象、系统设计与程序设计。",
+      "exam": [
+        {
+          "name": "基础知识",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "客观选择题，覆盖基础概念、法规标准、技术方法"
+        },
+        {
+          "name": "应用技术",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "案例分析/问答题，考查方案设计、故障分析和综合应用"
+        }
+      ],
+      "question_count": 11,
+      "type_counts": {
+        "单选": 4,
+        "案例": 3,
+        "判断": 2,
+        "多选": 2
+      }
+    },
+    "system_integration_pm": {
+      "name": "系统集成项目管理工程师",
+      "short": "系统集成",
+      "level": "软考中级",
+      "desc": "覆盖项目管理十大知识领域、系统集成实施、招投标、合同与信息化基础。",
+      "exam": [
+        {
+          "name": "基础知识",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "客观选择题，覆盖基础概念、法规标准、技术方法"
+        },
+        {
+          "name": "应用技术",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "案例分析/问答题，考查方案设计、故障分析和综合应用"
+        }
+      ],
+      "question_count": 11,
+      "type_counts": {
+        "单选": 4,
+        "案例": 3,
+        "判断": 3,
+        "多选": 1
+      }
+    },
+    "database_engineer": {
+      "name": "数据库系统工程师",
+      "short": "数据库工程师",
+      "level": "软考中级",
+      "desc": "覆盖数据库原理、SQL、事务并发、数据库设计、性能优化与安全。",
+      "exam": [
+        {
+          "name": "基础知识",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "客观选择题，覆盖基础概念、法规标准、技术方法"
+        },
+        {
+          "name": "应用技术",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "案例分析/问答题，考查方案设计、故障分析和综合应用"
+        }
+      ],
+      "question_count": 11,
+      "type_counts": {
+        "单选": 4,
+        "案例": 3,
+        "多选": 2,
+        "判断": 2
+      }
+    },
+    "information_security_engineer": {
+      "name": "信息安全工程师",
+      "short": "信息安全",
+      "level": "软考中级",
+      "desc": "覆盖密码学、网络安全、系统安全、应用安全、风险评估和安全管理。",
+      "exam": [
+        {
+          "name": "基础知识",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "客观选择题，覆盖基础概念、法规标准、技术方法"
+        },
+        {
+          "name": "应用技术",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "案例分析/问答题，考查方案设计、故障分析和综合应用"
+        }
+      ],
+      "question_count": 11,
+      "type_counts": {
+        "单选": 4,
+        "案例": 3,
+        "多选": 2,
+        "判断": 2
+      }
+    },
+    "software_evaluator": {
+      "name": "软件评测师",
+      "short": "软件评测师",
+      "level": "软考中级",
+      "desc": "覆盖软件测试基础、测试设计、质量模型、自动化测试与测试管理。",
+      "exam": [
+        {
+          "name": "基础知识",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "客观选择题，覆盖基础概念、法规标准、技术方法"
+        },
+        {
+          "name": "应用技术",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "案例分析/问答题，考查方案设计、故障分析和综合应用"
+        }
+      ],
+      "question_count": 11,
+      "type_counts": {
+        "单选": 4,
+        "案例": 3,
+        "多选": 2,
+        "判断": 2
+      }
+    },
+    "embedded_system_designer": {
+      "name": "嵌入式系统设计师",
+      "short": "嵌入式",
+      "level": "软考中级",
+      "desc": "覆盖嵌入式硬件、实时系统、接口通信、驱动、低功耗与系统设计。",
+      "exam": [
+        {
+          "name": "基础知识",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "客观选择题，覆盖基础概念、法规标准、技术方法"
+        },
+        {
+          "name": "应用技术",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "案例分析/问答题，考查方案设计、故障分析和综合应用"
+        }
+      ],
+      "question_count": 9,
+      "type_counts": {
+        "单选": 3,
+        "多选": 2,
+        "判断": 2,
+        "案例": 2
+      }
+    },
+    "multimedia_designer": {
+      "name": "多媒体应用设计师",
+      "short": "多媒体",
+      "level": "软考中级",
+      "desc": "覆盖图形图像、音视频、动画、交互设计、多媒体系统开发与版权基础。",
+      "exam": [
+        {
+          "name": "基础知识",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "客观选择题，覆盖基础概念、法规标准、技术方法"
+        },
+        {
+          "name": "应用技术",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "案例分析/问答题，考查方案设计、故障分析和综合应用"
+        }
+      ],
+      "question_count": 9,
+      "type_counts": {
+        "单选": 3,
+        "多选": 2,
+        "判断": 2,
+        "案例": 2
+      }
+    },
+    "information_system_supervisor": {
+      "name": "信息系统监理师",
+      "short": "系统监理",
+      "level": "软考中级",
+      "desc": "覆盖信息系统工程监理、质量进度投资控制、合同信息安全与验收。",
+      "exam": [
+        {
+          "name": "基础知识",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "客观选择题，覆盖基础概念、法规标准、技术方法"
+        },
+        {
+          "name": "应用技术",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "案例分析/问答题，考查方案设计、故障分析和综合应用"
+        }
+      ],
+      "question_count": 9,
+      "type_counts": {
+        "单选": 3,
+        "判断": 2,
+        "多选": 2,
+        "案例": 2
+      }
+    },
+    "network_planner": {
+      "name": "网络规划设计师",
+      "short": "网络规划",
+      "level": "软考高级",
+      "desc": "覆盖大型网络规划、架构设计、网络安全、可靠性、项目论证与论文写作。",
+      "exam": [
+        {
+          "name": "综合知识",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "客观选择题，覆盖综合基础、管理、技术和标准"
+        },
+        {
+          "name": "案例分析",
+          "time": 90,
+          "score": 75,
+          "pass": 45,
+          "types": "案例分析题，考查方案分析、架构/管理/规划能力"
+        },
+        {
+          "name": "论文",
+          "time": 120,
+          "score": 75,
+          "pass": 45,
+          "types": "论文写作，围绕项目实践、方法论和技术方案展开"
+        }
+      ],
+      "question_count": 11,
+      "type_counts": {
+        "单选": 4,
+        "案例": 3,
+        "多选": 2,
+        "判断": 2
+      }
+    },
+    "system_architect": {
+      "name": "系统架构设计师",
+      "short": "系统架构",
+      "level": "软考高级",
+      "desc": "覆盖软件架构、质量属性、架构评估、云原生、分布式系统和论文写作。",
+      "exam": [
+        {
+          "name": "综合知识",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "客观选择题，覆盖综合基础、管理、技术和标准"
+        },
+        {
+          "name": "案例分析",
+          "time": 90,
+          "score": 75,
+          "pass": 45,
+          "types": "案例分析题，考查方案分析、架构/管理/规划能力"
+        },
+        {
+          "name": "论文",
+          "time": 120,
+          "score": 75,
+          "pass": 45,
+          "types": "论文写作，围绕项目实践、方法论和技术方案展开"
+        }
+      ],
+      "question_count": 90,
+      "type_counts": {
+        "单选": 78,
+        "案例": 9,
+        "多选": 1,
+        "判断": 2
+      }
+    },
+    "system_analyst": {
+      "name": "系统分析师",
+      "short": "系统分析",
+      "level": "软考高级",
+      "desc": "覆盖需求工程、业务建模、系统分析设计、项目方法论和论文写作。",
+      "exam": [
+        {
+          "name": "综合知识",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "客观选择题，覆盖综合基础、管理、技术和标准"
+        },
+        {
+          "name": "案例分析",
+          "time": 90,
+          "score": 75,
+          "pass": 45,
+          "types": "案例分析题，考查方案分析、架构/管理/规划能力"
+        },
+        {
+          "name": "论文",
+          "time": 120,
+          "score": 75,
+          "pass": 45,
+          "types": "论文写作，围绕项目实践、方法论和技术方案展开"
+        }
+      ],
+      "question_count": 9,
+      "type_counts": {
+        "单选": 3,
+        "多选": 2,
+        "判断": 2,
+        "案例": 2
+      }
+    },
+    "information_system_pm": {
+      "name": "信息系统项目管理师",
+      "short": "高项",
+      "level": "软考高级",
+      "desc": "覆盖项目组合/项目集/项目管理、信息化战略、治理、案例分析和论文。",
+      "exam": [
+        {
+          "name": "综合知识",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "客观选择题，覆盖综合基础、管理、技术和标准"
+        },
+        {
+          "name": "案例分析",
+          "time": 90,
+          "score": 75,
+          "pass": 45,
+          "types": "案例分析题，考查方案分析、架构/管理/规划能力"
+        },
+        {
+          "name": "论文",
+          "time": 120,
+          "score": 75,
+          "pass": 45,
+          "types": "论文写作，围绕项目实践、方法论和技术方案展开"
+        }
+      ],
+      "question_count": 11,
+      "type_counts": {
+        "单选": 4,
+        "案例": 4,
+        "判断": 2,
+        "多选": 1
+      }
+    },
+    "system_planning_manager": {
+      "name": "系统规划与管理师",
+      "short": "系统规划",
+      "level": "软考高级",
+      "desc": "覆盖信息系统规划、IT服务管理、组织治理、运维管理和论文写作。",
+      "exam": [
+        {
+          "name": "综合知识",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "客观选择题，覆盖综合基础、管理、技术和标准"
+        },
+        {
+          "name": "案例分析",
+          "time": 90,
+          "score": 75,
+          "pass": 45,
+          "types": "案例分析题，考查方案分析、架构/管理/规划能力"
+        },
+        {
+          "name": "论文",
+          "time": 120,
+          "score": 75,
+          "pass": 45,
+          "types": "论文写作，围绕项目实践、方法论和技术方案展开"
+        }
+      ],
+      "question_count": 9,
+      "type_counts": {
+        "单选": 3,
+        "判断": 2,
+        "多选": 2,
+        "案例": 2
+      }
+    },
+    "programmer": {
+      "name": "程序员",
+      "short": "程序员",
+      "level": "软考初级",
+      "desc": "覆盖程序设计基础、数据结构、数据库、操作系统、网络和基本编码能力。",
+      "exam": [
+        {
+          "name": "基础知识",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "客观选择题，覆盖岗位基础知识"
+        },
+        {
+          "name": "应用技术",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "应用操作/案例分析，考查实际处理能力"
+        }
+      ],
+      "question_count": 11,
+      "type_counts": {
+        "单选": 4,
+        "案例": 3,
+        "判断": 2,
+        "多选": 2
+      }
+    },
+    "network_administrator": {
+      "name": "网络管理员",
+      "short": "网络管理员",
+      "level": "软考初级",
+      "desc": "覆盖网络基础、局域网维护、网络设备配置、常见故障处理与安全基础。",
+      "exam": [
+        {
+          "name": "基础知识",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "客观选择题，覆盖岗位基础知识"
+        },
+        {
+          "name": "应用技术",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "应用操作/案例分析，考查实际处理能力"
+        }
+      ],
+      "question_count": 11,
+      "type_counts": {
+        "单选": 4,
+        "案例": 3,
+        "判断": 2,
+        "多选": 2
+      }
+    },
+    "information_processing_technician": {
+      "name": "信息处理技术员",
+      "short": "信息处理",
+      "level": "软考初级",
+      "desc": "覆盖办公信息处理、数据库基础、网络基础、信息安全与应用操作。",
+      "exam": [
+        {
+          "name": "基础知识",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "客观选择题，覆盖岗位基础知识"
+        },
+        {
+          "name": "应用技术",
+          "time": 150,
+          "score": 75,
+          "pass": 45,
+          "types": "应用操作/案例分析，考查实际处理能力"
+        }
+      ],
+      "question_count": 11,
+      "type_counts": {
+        "单选": 4,
+        "案例": 3,
+        "判断": 2,
+        "多选": 2
+      }
+    }
+  }
+}
